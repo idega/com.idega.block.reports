@@ -3,7 +3,7 @@
     <pomVersion>3</pomVersion>
     <name>idegaWeb Reports Block</name>
     <artifactId>com.idega.block.reports</artifactId>
-    <currentVersion>1.0</currentVersion>
+    <currentVersion>1.0-SNAPSHOT</currentVersion>
     <organization>
         <name>idega software</name>
         <url>http://www.idega.com</url>
@@ -57,20 +57,10 @@
         </developer>
     </developers>
     <dependencies>
-        <dependency>
-            <groupId>bundles</groupId>
-            <artifactId>com.idega.core</artifactId>
-            <version>2.0</version>
-            <type>jar</type>
-            <url>http://www.idega.com/</url>
-            <properties>
-                <eclipse.dependency>true</eclipse.dependency>
-            </properties>
-        </dependency>
        <dependency>
             <groupId>bundles</groupId>
             <artifactId>com.idega.block.category</artifactId>
-            <version>1.0</version>
+            <version>SNAPSHOT</version>
             <type>jar</type>
             <url>http://www.idega.com/</url>
             <properties>
@@ -87,15 +77,5 @@
             </includes>
         </unitTest>
     </build>
-    <reports>
-        <report>maven-tasklist-plugin</report>
-        <report>maven-changelog-plugin</report>
-        <report>maven-developer-activity-plugin</report>
-        <report>maven-simian-plugin</report>
-        <report>maven-jcoverage-plugin</report>
-        <report>maven-faq-plugin</report>
-        <report>maven-file-activity-plugin</report>
-        <report>maven-changes-plugin</report>
-    </reports>
     <properties/>
 </project>
