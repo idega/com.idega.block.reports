@@ -4,18 +4,7 @@
     <name>idegaWeb Reports Block</name>
     <artifactId>com.idega.block.reports</artifactId>
     <currentVersion>1.0-SNAPSHOT</currentVersion>
-    <organization>
-        <name>idega software</name>
-        <url>http://www.idega.com</url>
-        <logo>http://support.idega.is/images/idegalogo2.gif</logo>
-    </organization>
-    <inceptionYear>2000</inceptionYear>
     <shortDescription>Reports</shortDescription>
-    <issueTrackingUrl>http://issues.idega.is</issueTrackingUrl>
-    <repository>
-        <connection>scm:cvs:ext:tryggvil@einstein.idega.is:/idega/cvs:bundles/com.idega.builder.bundle</connection>
-        <developerConnection>scm:cvs:ext:tryggvil@einstein.idega.is:/idega/cvs:bundles/com.idega.builder.bundle</developerConnection>
-    </repository>
     <versions/>
     <branches/>
     <mailingLists>
