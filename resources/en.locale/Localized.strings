@@ -1,0 +1,27 @@
+#Wed Mar 05 15:51:15 CET 2003
+manual=
+headers=Headers
+report_saved=Report was saved
+report_not_saved=Report was not saved
+report_updated=Report was updated
+orderby=Order by
+nothing=Nothing to show
+no_headers=No headers entered
+report_filer=Report Filer
+access_denied=Access denied
+close=Close
+select=Select
+report_not_updated=Report was not updated
+no_savecategories=No save categories
+fields=Fields
+no_name=No name entered
+report_viewer=Report Viewer
+condition=Condition
+colorder=Col order
+sql=SQL
+report_editor=Report Editor
+delete=Delete
+info=Info
+no_report=No Report
+name=Name
+iw.component.com.idega.block.reports.presentation.Reporter.name=Reporter
