@@ -3,7 +3,8 @@
     <pomVersion>3</pomVersion>
     <name>idegaWeb Reports Block</name>
     <artifactId>com.idega.block.reports</artifactId>
-    <currentVersion>1.0-SNAPSHOT</currentVersion>
+        <currentVersion>1.0.1</currentVersion>
+    <!--currentVersion>1.0-SNAPSHOT</currentVersion-->
     <shortDescription>Reports</shortDescription>
     <versions/>
     <branches/>
@@ -49,7 +50,8 @@
        <dependency>
             <groupId>bundles</groupId>
             <artifactId>com.idega.core</artifactId>
-            <version>SNAPSHOT</version>
+            <!--HELPER--><version>3.0.5</version><!--HELPER-->
+            <!--HELPERversion>SNAPSHOT</versionHELPER-->
             <type>jar</type>
             <url>http://www.idega.com/</url>
             <properties>
@@ -59,7 +61,8 @@
        <dependency>
             <groupId>bundles</groupId>
             <artifactId>com.idega.block.category</artifactId>
-            <version>SNAPSHOT</version>
+            <!--HELPER--><version>1.0.1</version><!--HELPER-->
+            <!--HELPERversion>SNAPSHOT</versionHELPER-->
             <type>jar</type>
             <url>http://www.idega.com/</url>
             <properties>
