@@ -312,7 +312,7 @@ public class ContentViewer extends Block{
           HeaderLink.setBold();
 //          (Text) HeaderLink.getObject();
         }
-        T.add( (Text) HeaderLink.getObject(), j+2, 1);
+        T.add(HeaderLink.getObject(), j+2, 1);
       }
 
     }

@@ -231,11 +231,11 @@ public class ReportPDFEditor extends Block implements Reports{
 
         if(info!=null){
 
-          family.setSelectedElement(String.valueOf((int)info.getFontFamily()));
+          family.setSelectedElement(String.valueOf(info.getFontFamily()));
 
-          size.setSelectedElement(String.valueOf((int)info.getFontSize()));
+          size.setSelectedElement(String.valueOf(info.getFontSize()));
 
-          style.setSelectedElement(String.valueOf((int)info.getFontStyle()));
+          style.setSelectedElement(String.valueOf(info.getFontStyle()));
 
           span.setSelectedElement(String.valueOf(info.getColumnSpan()));
 
