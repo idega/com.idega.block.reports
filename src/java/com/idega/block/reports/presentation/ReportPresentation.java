@@ -58,35 +58,35 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
 
   public void setColors(String LightColor,String MainColor,String DarkColor){
     if(LightColor.startsWith("#"))
-      this.LightColor = LightColor;
+      ReportPresentation.LightColor = LightColor;
     if(MainColor.startsWith("#"))
-      this.MiddleColor = MainColor;
+      ReportPresentation.MiddleColor = MainColor;
     if(DarkColor.startsWith("#"))
-      this.DarkColor = DarkColor;
+      ReportPresentation.DarkColor = DarkColor;
   }
   public void setBorder(int border){
-    this.iBorder = border;
+    ReportPresentation.iBorder = border;
   }
   public void setHeaderText(String sHeader){
     this.sHeader = sHeader;
   }
   public void setTextFontColor(String color){
-    this.TextFontColor = color;
+    ReportPresentation.TextFontColor = color;
   }
   public void setHeaderFontColor(String color){
-    this.HeaderFontColor = color;
+    ReportPresentation.HeaderFontColor = color;
   }
   public void setIndexFontColor(String color){
-    this.IndexFontColor = color;
+    ReportPresentation.IndexFontColor = color;
   }
   public void setTextFontSize(int size){
-    this.fontSize = size;
+    ReportPresentation.fontSize = size;
   }
   public void setTextFontBold(boolean bold){
-    this.fontBold = bold;
+    ReportPresentation.fontBold = bold;
   }
   public void setStyleAttribute(String style){
-    this.styleAttribute = style;
+    ReportPresentation.styleAttribute = style;
   }
   protected void makeView(){
     this.makeMainFrame();
@@ -116,7 +116,7 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
       HeaderFrame.setColumnAlignment(2,"right");
       Text T = new Text(this.sHeader);
       T.setBold();
-      T.setFontColor(this.DarkColor);
+      T.setFontColor(ReportPresentation.DarkColor);
       HeaderFrame.add(T,1,1);
     }
     HeaderFrame.setBorder(BORDER);
@@ -125,7 +125,7 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
   protected void addFrame(){
     Table BorderTable = new Table(1,1);
     BorderTable.setBorder(BORDER);
-    BorderTable.setCellpadding(this.iBorder);
+    BorderTable.setCellpadding(ReportPresentation.iBorder);
     BorderTable.setCellspacing(0);
     BorderTable.setColor(DarkColor);
     BorderTable.setWidth("100%");

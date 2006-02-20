@@ -310,7 +310,7 @@ T.add(Edit.formatText("Display order"),1,a++);
 
     Frame.add(T);
     Frame.add(new SubmitButton("risave","Save"));
-    Frame.add(new HiddenInput(this.sAction,String.valueOf(this.ACT4 )));
+    Frame.add(new HiddenInput(this.sAction,String.valueOf(Reports.ACT4 )));
     Frame.add(new HiddenInput("rep.cat.drp",String.valueOf(iCategoryId)));
 
     return(Frame);

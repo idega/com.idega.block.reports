@@ -137,7 +137,7 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
       //ne.addParameter(ReportSQLEditorWindow.prmReportId,"-1");
       if(hasEdit ||  hasPref || hasAdd ){
         T.add(ne,1,1);
-        T.add(T.getTransparentCell(iwc),1,1);
+        T.add(Table.getTransparentCell(iwc),1,1);
       }
 
       Link text = new Link(core.getImage("/shared/text.gif","text"));
@@ -146,7 +146,7 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
       //text.addParameter(ReportItemWindow.prmItems,"true");
       if(hasEdit || hasPref){
         T.add(text,1,1);
-        T.add(T.getTransparentCell(iwc),1,1);
+        T.add(Table.getTransparentCell(iwc),1,1);
       }
 
       Link category = getCategoryLink();
@@ -155,7 +155,7 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
         T.add(category,1,1);
 
       if ( hasEdit && enableDelete ) {
-        T.add(T.getTransparentCell(iwc),1,1);
+        T.add(Table.getTransparentCell(iwc),1,1);
         Link delete = new Link(core.getImage("/shared/delete.gif"));
         delete.setWindowToOpen(ReportEditorWindow.class);
         delete.addParameter(ReportEditorWindow.prmDelete,iCategoryId);
@@ -236,10 +236,10 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
         }
         T.getContentTable().setColumnAlignment(5,"right");
         T.getContentTable().setColumnAlignment(6,"right");
-        T.add(new HiddenInput(this.sAction,String.valueOf(this.ACT4)));
+        T.add(new HiddenInput(this.sAction,String.valueOf(Reports.ACT4)));
         if(hasEdit|| hasPref){
           SubmitButton deleteButtton = new SubmitButton(core.getImage("/shared/delete.gif"));//new Image("/reports/pics/delete.gif"));
-          T.add(new HiddenInput(this.sAction,String.valueOf(this.ACT4)));
+          T.add(new HiddenInput(this.sAction,String.valueOf(Reports.ACT4)));
           T.addButton(deleteButtton);
           HiddenInput countHidden = new HiddenInput(prefix+"count",String.valueOf(len));
           T.add(countHidden);

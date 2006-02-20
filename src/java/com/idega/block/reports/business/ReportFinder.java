@@ -83,7 +83,7 @@ public class ReportFinder {
   }
 
   public static int getObjectInstanceCategoryId(int iObjectInstanceId){
-    return CategoryFinder.getInstance().getInstance().getObjectInstanceCategoryId(iObjectInstanceId);
+    return CategoryFinder.getInstance().getObjectInstanceCategoryId(iObjectInstanceId);
   }
 
   public static int getObjectInstanceIdFromCategoryId(int iCategoryId){

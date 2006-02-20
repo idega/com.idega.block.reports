@@ -124,14 +124,14 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
     LinkTable.setWidth("100%");
     LinkTable.setCellpadding(2);
     LinkTable.setCellspacing(1);
-    LinkTable.setColor(this.DarkColor);
+    LinkTable.setColor(Reports.DarkColor);
     LinkTable.setWidth(last,"100%");
     Link Link1 = new Link("Stilltur");
-    Link1.setFontColor(this.LightColor);
-    Link1.addParameter(this.sAction,String.valueOf(this.ACT1));
+    Link1.setFontColor(Reports.LightColor);
+    Link1.addParameter(this.sAction,String.valueOf(Reports.ACT1));
     Link Link2 = new Link("Spakur");
-    Link2.setFontColor(this.LightColor);
-    Link2.addParameter(this.sAction,String.valueOf(this.ACT2));
+    Link2.setFontColor(Reports.LightColor);
+    Link2.addParameter(this.sAction,String.valueOf(Reports.ACT2));
     if(true){
       LinkTable.add(Link1,1,1);
       LinkTable.add(Link2,2,1);
@@ -246,7 +246,7 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
   }
   private PresentationObject doFooter(int start,int total,int reportId){
     Table T = new Table(5,1);
-    T.setColor(this.DarkColor);
+    T.setColor(Reports.DarkColor);
     T.setWidth("100%");
     T.setWidth(1,"25%");
     T.setWidth(5,"25%");
@@ -261,7 +261,7 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
         Link leftLink = new Link("<< ");
         leftLink.addParameter("start",start-displayNumber);
         leftLink.addParameter(PRM_REPORTID,reportId);
-        leftLink.setFontColor(this.LightColor);
+        leftLink.setFontColor(Reports.LightColor);
         T.add(leftLink,1,1);
         T.add(getHeaderText((start-displayNumber)+"-"+(start-1)),1,1);
       }
@@ -277,7 +277,7 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
         Link rightLink = new Link(" >>");
         rightLink.addParameter("start",start+displayNumber);
         rightLink.addParameter(PRM_REPORTID,reportId);
-        rightLink.setFontColor(this.LightColor);
+        rightLink.setFontColor(Reports.LightColor);
         T.add(rightLink,5,1);
       }
       if(!((nextstart-1) < total) )
@@ -292,14 +292,14 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
       Link PartLink = new Link("Partial");
       PartLink.addParameter("start",1);
       PartLink.addParameter(PRM_REPORTID,reportId);
-      PartLink.setFontColor(this.LightColor);
+      PartLink.setFontColor(Reports.LightColor);
       T.add(PartLink,2,1);
 
     }
     Link WholeLink = new Link("All");
     WholeLink.addParameter("start",-1);
     WholeLink.addParameter(PRM_REPORTID,reportId);
-    WholeLink.setFontColor(this.LightColor);
+    WholeLink.setFontColor(Reports.LightColor);
     T.add(WholeLink,4,1);
     return T;
   }
@@ -322,7 +322,7 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
     for(int j = 0; j < headers.length ;j++){
       Link L = new Link(getHeaderText(headers[j]));
       L.addParameter(PRM_REPORTID,reportId);
-      L.addParameter(this.sAction,this.ACT2);
+      L.addParameter(this.sAction,Reports.ACT2);
       L.addParameter("order",String.valueOf(j));
       L.setFontColor(WhiteColor);
       T.add(L,j+2,1);
@@ -383,7 +383,7 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
     Table T= new Table();
     for(int j = 0; j < header.length ;j++){
       Link L = new Link(header[j]);
-      L.addParameter(this.sAction,this.ACT2);
+      L.addParameter(this.sAction,Reports.ACT2);
       L.addParameter(PRM_REPORTID,reportId);
       L.addParameter("order",String.valueOf(j));
       T.add(L,j+1,1);

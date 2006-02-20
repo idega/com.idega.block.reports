@@ -323,7 +323,7 @@ public class ReportItemWindow extends IWAdminWindow{
 
     Frame.add(T);
     Frame.add(new SubmitButton("risave","Save"));
-    Frame.add(new HiddenInput(this.sAction,String.valueOf(this.ACT4 )));
+    Frame.add(new HiddenInput(this.sAction,String.valueOf(ReportItemWindow.ACT4 )));
     Frame.add(new HiddenInput(prmCategoryId,String.valueOf(iCategoryId)));
 
     return(Frame);

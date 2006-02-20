@@ -301,7 +301,7 @@ public class ContentViewer extends Block{
       Link HeaderLink = (Link) this.headerLinkToClone.clone();
       HeaderLink.setText(headers[j]);
       if(allowOrder){
-        HeaderLink.addParameter(this.sAction,this.ACT2);
+        HeaderLink.addParameter(this.sAction,ContentViewer.ACT2);
         HeaderLink.addParameter(prmOrder+iInstId,String.valueOf(j));
         //L.setFontColor(WhiteColor);
         T.add(HeaderLink,j+2,1);
@@ -380,7 +380,7 @@ public class ContentViewer extends Block{
     Table T= new Table();
     for(int j = 0; j < header.length ;j++){
       Link L = new Link(header[j]);
-      L.addParameter(this.sAction,this.ACT2);
+      L.addParameter(this.sAction,ContentViewer.ACT2);
       L.addParameter( prmOrder+iInstId,String.valueOf(j));
       T.add(L,j+1,1);
     }
