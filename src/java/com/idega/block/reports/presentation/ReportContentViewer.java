@@ -13,7 +13,6 @@ import com.idega.block.reports.data.Report;
 import com.idega.event.IWPageEventListener;
 import com.idega.idegaweb.IWApplicationContext;
 import com.idega.idegaweb.IWBundle;
-import com.idega.idegaweb.IWResourceBundle;
 import com.idega.presentation.Block;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.PresentationObject;
@@ -27,9 +26,6 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
   private final String sAction = "rcv_action";
   private String sActPrm = "";
   private int iAction = 0;
-  private String prefix = "rcv_";
-  private Vector vReportContent;
-	private List listReportContent;
   private String sLastOrder = "0";
   private int iReport = -1;
   private int displayNumber = 20;
@@ -41,17 +37,12 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
   protected static String prmLastOrder = "rep.view.lastorder";
   protected static String prmListStart = "rep.view.liststart";
 	private IWBundle iwb;
-	private IWResourceBundle iwrb;
 
   public ReportContentViewer(){
-    listReportContent = null;
   }
   public ReportContentViewer(Vector vRC){
-    listReportContent = vRC;
   }
   public ReportContentViewer(String sql){
-    ReportMaker rm = new ReportMaker();
-     listReportContent = rm.makeReport(sql);
   }
 
   public ReportContentViewer(Report R){
@@ -68,7 +59,6 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
     return "Content";
   }
   protected void control(IWContext iwc){
-		iwrb = getResourceBundle(iwc);
 		iwb = getBundle(iwc);
     Table  T = new Table();
     T.setWidth("100%");
@@ -377,41 +367,6 @@ public class ReportContentViewer extends Block implements Reports,IWPageEventLis
       Collections.reverse(mbs);
     else
       Collections.sort(mbs,RCC);
-  }
-
-  private Table makeTable(String[] header,String[][] content,int reportId){
-    Table T= new Table();
-    for(int j = 0; j < header.length ;j++){
-      Link L = new Link(header[j]);
-      L.addParameter(this.sAction,Reports.ACT2);
-      L.addParameter(PRM_REPORTID,reportId);
-      L.addParameter("order",String.valueOf(j));
-      T.add(L,j+1,1);
-    }
-    for(int i =0; i < content.length;i++){
-        for(int j = 0; j < content[i].length;j++){
-          T.add(ReportPresentation.formatText(content[i][j]),j+1,i+2);
-      }
-    }
-    return T;
-  }
-
-  private String[][] makeStrings(Vector vContent){
-    int len = vContent.size();
-    String[][] s = null;
-    if(len > 0){
-    ReportContent RC = (ReportContent) vContent.elementAt(0);
-    int cols = RC.size();
-      s = new String[len][cols];
-      for(int i = 0; i < len; i++){
-        RC = (ReportContent)vContent.elementAt(i);
-        for(int j = 0; j < cols ;j++){
-          s[i][j] = RC.getContent(j);
-          //System.err.println(s[i][j]);
-        }
-      }
-    }
-    return s;
   }
 
   protected static void removeSessionParameters(IWContext iwc){

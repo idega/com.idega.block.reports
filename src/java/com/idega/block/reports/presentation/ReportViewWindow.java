@@ -4,8 +4,6 @@ import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
 import com.idega.idegaweb.presentation.IWAdminWindow;
 import com.idega.presentation.IWContext;
-import com.idega.presentation.PresentationObject;
-import com.idega.presentation.text.Link;
 
 /**
  * Title:
@@ -49,20 +47,5 @@ public class ReportViewWindow extends IWAdminWindow implements Reports{
     setTitle(title);
     addTitle(title);
     addHeaderObject(rv.getLinks());
-  }
-
-  private PresentationObject getLinkTable(){
-    Link L = new Link(iwrb.getLocalizedString("close","Close"));
-    L.setFontStyle("text-decoration: none");
-    L.setFontColor("#FFFFFF");
-    L.setBold();
-    L.setEventListener(ReportContentViewer.class);
-    L.setOnClick("window.close()");
-    return L;
-  }
-
-  private void doCloseNoAction(IWContext iwc){
-    ReportContentViewer.removeSessionParameters(iwc);
-    close();
   }
 }

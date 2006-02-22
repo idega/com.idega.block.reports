@@ -32,25 +32,15 @@ public class ContentComparator implements Comparator {
 
 
 
-  private int sortBy;
-
-
-
   public ContentComparator() {
-
-      sortBy = 0;
 
   }
 
   public ContentComparator(int toSortBy) {
 
-      sortBy = toSortBy;
-
   }
 
   public void sortBy(int toSortBy) {
-
-      sortBy = toSortBy;
 
   }
 

@@ -28,17 +28,11 @@ import com.idega.presentation.ui.TextInput;
 
 public class ReportEditorWindow extends IWAdminWindow {
 
-  private final String sAction = "rep.edit.action";
   protected final static int ACT1 = 1,ACT2 = 2, ACT3 = 3,ACT4  = 4,ACT5 = 5,ACT6=6,ACT7=7;
 
   protected boolean isAdmin = false;
-  private String prefix = "rep.edit.";
-  private String sManual = null;
   private int iCategoryId = -1;
-  private int iReportId = -1;
-  private boolean useCheckBoxes = true;
-
-	private static String actDelete = "rep_delete";
+  private static String actDelete = "rep_delete";
 	private static String actSave = "rep_save";
 	private static String actClose = "rep_close";
 
@@ -50,9 +44,6 @@ public class ReportEditorWindow extends IWAdminWindow {
   protected IWBundle iwb,core;
 
 	private int iObjInsId = -1;
-	private int iUserId = -1;
-
-
 	private static String prmFormProcess = "nwe_formprocess";
   public final static String prmReportId = "rep_report_id";
 	public final static String prmNewReport = "rep_newreport";
@@ -222,7 +213,6 @@ public class ReportEditorWindow extends IWAdminWindow {
     isAdmin = iwc.hasEditPermission(this);
 
     control(iwc);
-    sManual = iwrb.getLocalizedString("manual","");
   }
 
 }

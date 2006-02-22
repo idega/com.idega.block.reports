@@ -1,352 +1,320 @@
 package com.idega.block.reports.business;
 
-
-
 import com.idega.block.reports.data.*;
 
 import java.util.StringTokenizer;
 
 import java.sql.SQLException;
 
- /**
+/**
+ * 
+ * Title:
+ * 
+ * Description:
+ * 
+ * Copyright: Copyright (c) 2001
+ * 
+ * Company: idega multimedia
+ * 
+ * @author <a href="mailto:aron@idega.is">aron@idega.is</a>
+ * 
+ * @version 1.0
+ * 
+ */
 
-  * Title:
+public class ReportCondition {
 
-  * Description:
+	private ReportItem Item;
 
-  * Copyright:    Copyright (c) 2001
+	private String sJoin = "", sOperator = "";
 
-  * Company:      idega multimedia
+	private String[] sVars;
 
-  * @author       <a href="mailto:aron@idega.is">aron@idega.is</a>
+	private String sCondition = "";
 
-  * @version 1.0
+	private boolean bCondition, bSelect, bField = false;
 
-  */
+	private Integer orderNumber = null;
 
+	private Integer colOrder = null;
 
-
- public class ReportCondition{
-
-
-
-  private ReportItem Item;
-
-  private String sJoin="",sOperator="",sVariable="";
-
-  private String[] sOps,sVars;
-
-  private String sCondition="";
-
-  private boolean bCondition,bSelect,bField = false;
-
-  private boolean bBetween = false;
-
-  private Integer orderNumber = null;
-
-  private Integer colOrder = null;
-
-	private String sVarOne = null,sVarTwo = null;
-
-	private String sFunction = null;
+	private String sVarOne = null, sVarTwo = null;
 
 	private boolean bFunction = false;
 
+	public ReportCondition(ReportItem Item) {
 
+		this.Item = Item;
 
-  public ReportCondition(ReportItem Item) {
+		init();
 
-   this.Item = Item;
+	}
 
-   init();
+	public ReportCondition(int ItemId) {
 
-  }
+		try {
 
-  public ReportCondition(int ItemId){
+			this.Item = ((com.idega.block.reports.data.ReportItemHome) com.idega.data.IDOLookup.getHomeLegacy(ReportItem.class)).findByPrimaryKeyLegacy(ItemId);
 
-    try {
+			init();
 
-      this.Item  = ((com.idega.block.reports.data.ReportItemHome)com.idega.data.IDOLookup.getHomeLegacy(ReportItem.class)).findByPrimaryKeyLegacy(ItemId);
+		}
 
-      init();
+		catch (SQLException ex) {
 
-    }
+			ex.printStackTrace();
 
-    catch (SQLException ex) {
+		}
 
-      ex.printStackTrace();
+	}
 
-    }
+	private void init() {
 
-  }
+		if (Item.getField() != null) {
 
-  private void init(){
+			bField = true;
 
-    if(Item.getField()!= null){
+			StringBuffer sb = new StringBuffer(this.Item.getMainTable());
 
-      bField = true;
+			sb.append(".");
 
-      StringBuffer sb = new StringBuffer(this.Item.getMainTable());
+			sb.append(this.Item.getField());
 
-      sb.append(".");
+			this.sJoin = sb.toString();
 
-      sb.append(this.Item.getField());
+		}
 
-      this.sJoin = sb.toString();
+		this.bCondition = false;
 
-      this.sOps = this.Item.getOps();
+		this.bSelect = false;
 
-    }
+	}
 
-    this.bCondition = false;
+	public void setCondition() {
 
-    this.bSelect   = false;
+	}
 
-  }
+	public ReportItem getItem() {
 
-  public void setCondition(){
+		return this.Item;
 
+	}
 
+	public String getCondition() {
 
-  }
+		StringBuffer sb = new StringBuffer("");
 
-  public ReportItem getItem(){
+		if (bCondition && bField) {
 
-    return this.Item;
-
-  }
-
-  public String getCondition(){
-
-    StringBuffer sb = new StringBuffer("");
-
-
-
-    if(bCondition && bField){
-
-      if(sOperator.equalsIgnoreCase("BETWEEN") && sVarOne !=null && sVarTwo!=null){
-
-        sb.append(this.sJoin);
-
-        sb.append(" BETWEEN '");
-
-        sb.append(sVarOne);
-
-        sb.append("' AND '");
-
-        sb.append(sVarTwo);
-
-        sb.append("'");
-
-      }
-
-			else if(sOperator.equalsIgnoreCase("IN")){
+			if (sOperator.equalsIgnoreCase("BETWEEN") && sVarOne != null && sVarTwo != null) {
 
 				sb.append(this.sJoin);
 
-        sb.append(" ");
+				sb.append(" BETWEEN '");
 
-        sb.append(" BETWEEN '");
+				sb.append(sVarOne);
 
-        sb.append(sVarOne);
+				sb.append("' AND '");
+
+				sb.append(sVarTwo);
+
+				sb.append("'");
 
 			}
 
-			/* //old
+			else if (sOperator.equalsIgnoreCase("IN")) {
 
-      else{
+				sb.append(this.sJoin);
 
-        int len = this.Item.getOps().length;
+				sb.append(" ");
 
-        for (int i = 0; i < len; i++) {
+				sb.append(" BETWEEN '");
 
-          sb.append(this.sJoin);
+				sb.append(sVarOne);
 
-          sb.append(" ");
+			}
 
-          sb.append(this.sOps[i]);
+			/*
+			 * //old
+			 * 
+			 * else{
+			 * 
+			 * int len = this.Item.getOps().length;
+			 * 
+			 * for (int i = 0; i < len; i++) {
+			 * 
+			 * sb.append(this.sJoin);
+			 * 
+			 * sb.append(" ");
+			 * 
+			 * sb.append(this.sOps[i]);
+			 * 
+			 * sb.append(" ");
+			 * 
+			 * if(sVars != null){
+			 * 
+			 * sb.append("'");
+			 * 
+			 * sb.append(this.sVars[i]);
+			 * 
+			 * sb.append("' ");
+			 *  }
+			 *  }
+			 *  }
+			 * 
+			 */
 
-          sb.append(" ");
+		}
 
-          if(sVars != null){
+		this.sCondition = sb.toString();
 
-            sb.append("'");
+		if (this.Item.getConditionType().equalsIgnoreCase("I"))
 
-            sb.append(this.sVars[i]);
+			sCondition = sCondition.replace("'".charAt(0), " ".charAt(0));
 
-            sb.append("' ");
+		return this.sCondition;
 
-          }
+	}
 
-        }
+	public void setVariableOne(String sVar) {
 
-      }
-
-			*/
-
-    }
-
-    this.sCondition = sb.toString();
-
-		if(this.Item.getConditionType().equalsIgnoreCase("I"))
-
-			sCondition = sCondition.replace("'".charAt(0)," ".charAt(0) );
-
-    return this.sCondition;
-
-  }
-
-  public void setOperator(String[] sOps){
-
-    this.sOps = sOps;
-
-  }
-
-
-
-	public void setVariableOne(String sVar){
-
-	  this.sVarOne = sVar;
+		this.sVarOne = sVar;
 
 		this.bCondition = true;
 
 	}
 
-	public void setVariableTwo(String sVar){
+	public void setVariableTwo(String sVar) {
 
-	  this.sVarTwo = sVar;
+		this.sVarTwo = sVar;
 
 		this.bCondition = true;
 
 	}
 
+	public void setVariable(String sVar) {
 
+		StringTokenizer st = new StringTokenizer(sVar, ":");
 
-  public void setVariable(String sVar){
+		if (st.countTokens() == 2) {
 
-    StringTokenizer st = new StringTokenizer(sVar,":");
+			sVars = new String[2];
 
-    if(st.countTokens() == 2){
+			sVars[0] = st.nextToken();
 
-      bBetween = true;
+			sVars[1] = st.nextToken();
 
-      sVars = new String[2];
+		}
 
-      sVars[0] = st.nextToken();
+		else {
 
-      sVars[1] = st.nextToken();
+			this.sVars = new String[1];
 
-    }
+			sVars[0] = sVar;
 
-    else{
+		}
 
-      this.sVars = new String[1];
-
-      sVars[0] = sVar;
-
-    }
-
-    this.bCondition = true;
-
-  }
-
-  public void setVariables(String[] sVars){
-
-    this.sVars = sVars;
-
-    this.bCondition = true;
-
-  }
-
-  public String getDisplay(){
-
-    return this.getItem().getName();
-
-  }
-
-  public void setIsSelect(){
-
-    this.bSelect = true;
-
-  }
-
-  public boolean isSelect(){
-
-    return bSelect;
-
-  }
-
-  public void setColumnOrder(Integer order){
-
-    colOrder = order;
-
-  }
-
-  public Integer getColumnOrder(){
-
-    return colOrder;
-
-  }
-
-  public void setOrder(Integer order){
-
-    orderNumber = order;
-
-  }
-
-  public Integer getOrder(){
-
-    return orderNumber;
-
-  }
-
-	public String getOperator(){
-
-	  return sOperator;
+		this.bCondition = true;
 
 	}
 
-	public void setOperator(String sOp){
+	public void setVariables(String[] sVars) {
 
-	  sOperator = sOp;
+		this.sVars = sVars;
 
-	}
-
-	public String getFunction(){
-
-	  return sOperator;
+		this.bCondition = true;
 
 	}
 
-	public void setFunction(String sOp){
+	public String getDisplay() {
+
+		return this.getItem().getName();
+
+	}
+
+	public void setIsSelect() {
+
+		this.bSelect = true;
+
+	}
+
+	public boolean isSelect() {
+
+		return bSelect;
+
+	}
+
+	public void setColumnOrder(Integer order) {
+
+		colOrder = order;
+
+	}
+
+	public Integer getColumnOrder() {
+
+		return colOrder;
+
+	}
+
+	public void setOrder(Integer order) {
+
+		orderNumber = order;
+
+	}
+
+	public Integer getOrder() {
+
+		return orderNumber;
+
+	}
+
+	public String getOperator() {
+
+		return sOperator;
+
+	}
+
+	public void setOperator(String sOp) {
+
+		sOperator = sOp;
+
+	}
+
+	public String getFunction() {
+
+		return sOperator;
+
+	}
+
+	public void setFunction(String sOp) {
 
 		bFunction = true;
 
-	  sOperator = sOp;
+		sOperator = sOp;
 
 	}
 
-	public boolean isFunction(){
+	public boolean isFunction() {
 
-	  return bFunction;
-
-	}
-
-	public String getFieldFullName(){
-
-	  return Item.getMainTable() +"."+Item.getField();
+		return bFunction;
 
 	}
 
-	public String getFieldFunction(){
+	public String getFieldFullName() {
 
-	  return getFunction()+"("+getFieldFullName()+")";
+		return Item.getMainTable() + "." + Item.getField();
 
 	}
 
-	public String getField(){
+	public String getFieldFunction() {
 
-	  if(isFunction())
+		return getFunction() + "(" + getFieldFullName() + ")";
+
+	}
+
+	public String getField() {
+
+		if (isFunction())
 
 			return getFieldFunction();
 

@@ -6,8 +6,6 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.Vector;
 
-import javax.faces.component.UIComponent;
-
 import com.idega.block.reports.business.ReportCondition;
 import com.idega.block.reports.business.ReportEntityHandler;
 import com.idega.block.reports.business.ReportMaker;
@@ -494,12 +492,6 @@ public class ReportSQLEditor extends Block implements Reports{
 
   }
 
-  private PresentationObject getCloseLink(){
-    Link back =  new Link(iwrb.getImage("/pics/close.gif"));
-    back.addParameter(sAction,ACT5);
-    return back;
-  }
-
   private void doCloseNoAction(){
 
   }
@@ -639,36 +631,12 @@ public class ReportSQLEditor extends Block implements Reports{
   	 return L;
   }
   
-  private ReportViewer getInstanceOfReportViewer(){
-  	UIComponent obj = this;
-	UIComponent parent ;
-  	while( (parent = obj.getParent()) != null){
-  		if(parent instanceof ReportViewer)
-  			return (ReportViewer)parent;
-  		obj = parent;
-  	}
-  	return null;
-  }
-
   private String[] str2array(String s,String delim){
     StringTokenizer st = new StringTokenizer(s,delim);
     String[] array = new String[st.countTokens()];
     int i = 0;
     while(st.hasMoreTokens()){
       array[i++] = st.nextToken();
-    }
-    return array;
-  }
-
-  private Integer[] str2IntegerArray(String s,String delim){
-    StringTokenizer st = new StringTokenizer(s,delim);
-    Integer[] array = new Integer[st.countTokens()];
-    int i = 0;
-    while(st.hasMoreTokens()){
-      try{
-        array[i++] = new Integer(st.nextToken());
-      }
-      catch(NumberFormatException nfe){}
     }
     return array;
   }

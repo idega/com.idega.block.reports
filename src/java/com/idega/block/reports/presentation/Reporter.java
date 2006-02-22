@@ -48,8 +48,6 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
   private static final String prefix = "rep_reporter_";
   private static final String PermissionAdd = "add";
   private static final String PermissionPref = "pref";
-  private String sLastOrder = "0";
-  private boolean sqlEditAdmin = true;
   boolean newobjinst = false;
   boolean isAdmin = false;
   boolean hasEdit = false,hasPref = false,hasAdd = false;
@@ -81,7 +79,6 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
   }
 
   public void setSQLEdit(boolean value){
-    sqlEditAdmin = value;
   }
 
   public void registerPermissionKeys(){
@@ -280,14 +277,6 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
     L.addParameter(ReportViewer.getMenuStartClassParameter(ReportContentViewer.class));
     return L;
   }
-  private Link getAdminLink(int id,int catid){
-    Link L = new Link(core.getImage("/shared/edit.gif"));//new Image("/reports/pics/edit.gif"));
-    //L.setWindowToOpen(ReportSQLEditorWindow.class);
-    //L.addParameter(ReportSQLEditorWindow.prmReportId,id);
-    //L.addParameter(ReportSQLEditorWindow.prmCategoryId,catid);
-    return L;
-  }
-
   public static Link getPrintLink(IWApplicationContext iwac,Image image,int iReportId,int iReportInfoId){
     Link L = new Link( image );
     L.setURL(iwac.getIWMainApplication().getMediaServletURI()+"report.pdf");

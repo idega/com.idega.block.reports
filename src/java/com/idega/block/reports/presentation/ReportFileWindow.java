@@ -2,8 +2,6 @@ package com.idega.block.reports.presentation;
 
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
-import com.idega.presentation.PresentationObject;
-import com.idega.presentation.text.Link;
 import com.idega.presentation.ui.Window;
 
 
@@ -99,13 +97,4 @@ public class ReportFileWindow extends Window implements Reports{
     }
     */
 //  }
-
-  private PresentationObject getLinkTable(){
-    Link L = new Link(iwrb.getLocalizedString("close","Close"));
-    L.setFontStyle("text-decoration: none");
-    L.setFontColor("#FFFFFF");
-    L.setBold();
-    L.setOnClick("window.close()");
-    return L;
-  }
 }

@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.idega.block.reports.business.ReportEntityHandler;
-import com.idega.block.reports.data.ReportCategory;
 import com.idega.block.reports.data.ReportEntity;
 import com.idega.block.reports.data.ReportItem;
 import com.idega.data.EntityFinder;
@@ -35,15 +34,8 @@ public class ReportItemizer extends Block implements Reports{
   private  int iCategoryId = -1;
   private String sActPrm = "0";
   private int iAction = 0;
-  private String sName,sInfo;
-  private String sIndex;
-  private int iCatId = 0;
-
   public ReportItemizer(){
     super();
-    sIndex = "0";
-    sName = "";
-    sInfo = "";
   }
 
   protected void control(IWContext iwc){
@@ -118,32 +110,6 @@ public class ReportItemizer extends Block implements Reports{
       LinkTable.add(Link3,2,1);
     }
     return LinkTable;
-  }
-
-  private void doSome(IWContext iwc){
-    int id = 0;
-    String sIndex = iwc.getParameter("rep.cat.drp");
-    if(sIndex != null){
-      id = Integer.parseInt(sIndex);
-      iwc.setSessionAttribute(prefix+"id",new Integer(id));
-      if(id != 0){
-        try {
-          ReportCategory RC = ((com.idega.block.reports.data.ReportCategoryHome)com.idega.data.IDOLookup.getHomeLegacy(ReportCategory.class)).findByPrimaryKeyLegacy(id);
-          sName = RC.getName();
-          sInfo = RC.getDescription();
-        }
-        catch (Exception ex) {
-        }
-      }
-    }
-  }
-
-  private void doMain(IWContext iwc){
-    String sIndex = iwc.getParameter("rep_cat_drp");
-    Table T = new Table();
-    if(sIndex==null)
-      sIndex = "0";
-    add(T);
   }
 
   private PresentationObject doView(IWContext iwc){
@@ -339,27 +305,6 @@ T.add(Edit.formatText("Display order"),1,a++);
       T.add(new SubmitButton("ea_ok","Ok"),1,3);
     }
     return T;
-  }
-
-  private PresentationObject getEntityTable(ReportEntity RE){
-    try{
-    IDOLegacyEntity ent = (IDOLegacyEntity) RefactorClassRegistry.forName(RE.getEntity()).newInstance();
-    Table T = new Table();
-
-    T.add(Edit.formatText("Display"),1,1);
-    T.add(Edit.formatText("Field"),2,1);
-    T.add(Edit.formatText("Relation"),3,1);
-    for (int i = 0;i < ent.getColumnNames().length; i++ ){
-      T.add(Edit.formatText(ent.getLongName(ent.getColumnNames()[i])),1,i+2);
-      T.add(Edit.formatText(ent.getColumnNames()[i]),2,i+2);
-      Class relationshipClass= ent.getRelationShipClass(ent.getColumnNames()[i]);
-      if(relationshipClass!=null){
-        T.add(Edit.formatText(relationshipClass.getName()),3,i+2);
-      }
-    }
-    return T;
-    }
-    catch(Exception ex){return new Table();}
   }
 
   private PresentationObject getEntityForm(ReportEntity RE){

@@ -23,7 +23,6 @@ import com.idega.presentation.ui.IntegerInput;
 import com.idega.presentation.ui.SubmitButton;
 import com.idega.presentation.ui.TextInput;
 import com.idega.presentation.util.Edit;
-import com.lowagie.text.Font;
 import com.lowagie.text.Rectangle;
 
 /**
@@ -250,39 +249,7 @@ public class ReportPDFSetupEditor extends Block implements Reports{
 		return drp;
   }
 
-	private DropdownMenu getSizeDrop(String name){
-	  DropdownMenu drp = new DropdownMenu(name);
-		for (int i = 8; i < 21; i++) {
-			drp.addMenuElement(String.valueOf(i));
-		}
-
-		return drp;
-	}
-	private DropdownMenu getStyleDrop(String name){
-	  DropdownMenu drp = new DropdownMenu(name);
-		drp.addMenuElement(String.valueOf(Font.NORMAL),"NORMAL");
-		drp.addMenuElement(String.valueOf(Font.BOLD),"BOLD");
-		drp.addMenuElement(String.valueOf(Font.BOLDITALIC),"BOLDITALIC");
-		drp.addMenuElement(String.valueOf(Font.ITALIC),"ITALIC");
-		drp.addMenuElement(String.valueOf(Font.STRIKETHRU),"STRIKETHRU");
-		drp.addMenuElement(String.valueOf(Font.UNDERLINE),"UNDERLINE");
-
-		return drp;
-	}
-  private String getStyle(int style){
-    switch (style) {
-      case Font.NORMAL:   return "NORMAL";
-      case Font.BOLD:   return "BOLD";
-      case Font.BOLDITALIC:   return "BOLDITALIC";
-      case Font.ITALIC:   return "ITALIC";
-      case Font.STRIKETHRU:   return "STRIKETHRU";
-      case Font.UNDERLINE:   return "UNDERLINE";
-    }
-    return "";
-
-  }
-
-  private DropdownMenu getBorderDrop(String name){
+	private DropdownMenu getBorderDrop(String name){
 	  DropdownMenu drp = new DropdownMenu(name);
 		drp.addMenuElement(String.valueOf(Rectangle.BOX),"BOX"); //15
 

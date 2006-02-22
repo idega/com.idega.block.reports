@@ -482,20 +482,6 @@ public class ReportMaker {
 
 
 
-  private Vector[] makeVectorArray(int size){
-
-    Vector[] v = new Vector[size];
-
-    for(int i = 0; i < size;i++){
-
-      v[i] = new Vector();
-
-    }
-
-    return v;
-
-  }
-
   private Vector searchInDatabase(String SQL){
 
     Vector v = new Vector();

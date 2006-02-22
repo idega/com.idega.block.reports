@@ -16,7 +16,6 @@ import com.idega.idegaweb.presentation.IWAdminWindow;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.PresentationObject;
 import com.idega.presentation.Table;
-import com.idega.presentation.text.Link;
 import com.idega.presentation.text.Text;
 import com.idega.presentation.ui.CheckBox;
 import com.idega.presentation.ui.CloseButton;
@@ -46,8 +45,6 @@ public class ReportsEditorWindow extends IWAdminWindow {
   protected boolean isAdmin = false;
   private String prefix = "rep.edit.";
   private String sManual = null;
-  private int iCategory;
-  private int iSaveCategory = -1;
   private int iReportId = -1;
   private Integer[] iSaveCategoryIds = null, iViewCategoryIds = null;
   private String sSaveCategories = null,sViewCategories = null;
@@ -483,12 +480,6 @@ public class ReportsEditorWindow extends IWAdminWindow {
 
   protected void doChange(IWContext iwc) throws SQLException{
 
-  }
-
-  private PresentationObject getCloseLink(){
-    Link back =  new Link(iwrb.getImage("/pics/close.gif"));
-    back.addParameter(sAction,ACT5);
-    return back;
   }
 
   private void doCloseNoAction(){

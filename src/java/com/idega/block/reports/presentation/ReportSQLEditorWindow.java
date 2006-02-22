@@ -16,7 +16,6 @@ import com.idega.idegaweb.presentation.IWAdminWindow;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.PresentationObject;
 import com.idega.presentation.Table;
-import com.idega.presentation.text.Link;
 import com.idega.presentation.text.Text;
 import com.idega.presentation.ui.CheckBox;
 import com.idega.presentation.ui.CloseButton;
@@ -481,12 +480,6 @@ public class ReportSQLEditorWindow extends IWAdminWindow implements Reports{
 
   }
 
-  private PresentationObject getCloseLink(){
-    Link back =  new Link(iwrb.getImage("/pics/close.gif"));
-    back.addParameter(sAction,ACT5);
-    return back;
-  }
-
   private void doCloseNoAction(){
     close();
   }
@@ -607,19 +600,6 @@ public class ReportSQLEditorWindow extends IWAdminWindow implements Reports{
     int i = 0;
     while(st.hasMoreTokens()){
       array[i++] = st.nextToken();
-    }
-    return array;
-  }
-
-  private Integer[] str2IntegerArray(String s,String delim){
-    StringTokenizer st = new StringTokenizer(s,delim);
-    Integer[] array = new Integer[st.countTokens()];
-    int i = 0;
-    while(st.hasMoreTokens()){
-      try{
-        array[i++] = new Integer(st.nextToken());
-      }
-      catch(NumberFormatException nfe){}
     }
     return array;
   }

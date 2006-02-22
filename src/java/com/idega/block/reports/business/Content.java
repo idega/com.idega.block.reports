@@ -26,8 +26,6 @@ package com.idega.block.reports.business;
 
   private Object[] Content;
 
-  private int index = 0;
-
   private int size = 0;
 
 

@@ -11,7 +11,6 @@ import com.idega.block.reports.business.ReportService;
 import com.idega.block.reports.data.Report;
 import com.idega.block.reports.data.ReportItem;
 import com.idega.idegaweb.IWBundle;
-import com.idega.idegaweb.IWResourceBundle;
 import com.idega.presentation.Block;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.PresentationObject;
@@ -35,21 +34,17 @@ public class ReportEditor extends Block implements Reports{
   private String sActPrm = "0";
   private int iAction = 0;
   private String prefix = "reed_";
-  private String sLastOrder = "0";
   private String sManual = null;
   private int iCategory;
   private int iSaveCategory = -1;
   private int iReportId = -1;
   private boolean sqlEditAdmin = false;
-  private String sMainCategoryAttribute = null,sViewCategoryAttribute = null;
-  private int iMainCategoryAttributeId = 0, iViewCategoryAttributeId= 0;
   private int BORDER = 0;
 
   public final static String prmSaveCategory = "rep.category_id";
   public final static String prmReportId = "rep.report_id";
 
 	private IWBundle iwb;
-	private IWResourceBundle iwrb;
 
   public ReportEditor(){
     super();
@@ -69,7 +64,6 @@ public class ReportEditor extends Block implements Reports{
   }
 
   protected void control(IWContext iwc){
-		iwrb = getResourceBundle(iwc);
 		iwb = getBundle(iwc);
     try{
         if(isAdmin){

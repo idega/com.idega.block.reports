@@ -571,30 +571,6 @@ public class ReportPDFEditor extends Block implements Reports{
 
 
 
-  private String getEndString(String stringName){
-
-    if(stringName.equals("space"))
-
-      return "Space";
-
-    else if(stringName.equals("newline"))
-
-      return "Newline";
-
-    else if(stringName.equals("tab"))
-
-      return "Tab";
-
-    else if(stringName.equals("tabtab"))
-
-      return "Double tab";
-
-    return "";
-
-  }
-
-
-
 
 
 

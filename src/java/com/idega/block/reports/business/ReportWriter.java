@@ -44,7 +44,6 @@ public class ReportWriter implements MediaWritable {
 
 	private Report eReport;
 	private ReportInfo eReportInfo;
-	private String mimeType;
 	private MemoryFileBuffer buffer = null;
 	public final static String prmReportId = "repid";
 	public final static String prmReportInfoId = "repifid";

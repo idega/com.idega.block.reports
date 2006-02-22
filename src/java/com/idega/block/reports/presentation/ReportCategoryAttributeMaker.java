@@ -20,8 +20,6 @@ public class ReportCategoryAttributeMaker extends Block{
 
 
 
-  private boolean isAdmin;
-
   private final int ACT0 = 0,ACT1=1,ACT2=2,ACT3=3,ACT4=4;
 
   private String prefix = "rcam_";
@@ -32,21 +30,17 @@ public class ReportCategoryAttributeMaker extends Block{
 
   private int iAction = 0;
 
-  private String sName,sInfo,sAttId;
+  private String sName,sAttId;
 
-  private String sIndex,sId;
+  private String sId;
 
 
 
   public ReportCategoryAttributeMaker(){
 
-    sIndex = "0";
-
     sId = "0";
 
     sName = "";
-
-    sInfo = "";
 
     sAttId = "0";
 
@@ -268,8 +262,6 @@ public class ReportCategoryAttributeMaker extends Block{
 
     sName = "";
 
-    sInfo = "";
-
   }
 
 
@@ -453,8 +445,6 @@ public class ReportCategoryAttributeMaker extends Block{
     }
 
     */
-
-    isAdmin = true;
 
     control(iwc);
 

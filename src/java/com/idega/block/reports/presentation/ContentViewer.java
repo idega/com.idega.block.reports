@@ -6,8 +6,6 @@ import java.util.Vector;
 
 import com.idega.block.reports.business.Content;
 import com.idega.block.reports.business.ContentComparator;
-import com.idega.block.reports.business.ReportService;
-import com.idega.block.reports.data.Report;
 import com.idega.presentation.Block;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.PresentationObject;
@@ -21,12 +19,9 @@ public class ContentViewer extends Block{
   private final String sAction = "rcv_action";
   private String sActPrm = "";
   private int iAction = 0;
-  private String prefix = "rcv_";
-	private List listOfContent = null;
+  private List listOfContent = null;
   private String sLastOrder = "0";
-  private int iReport = -1;
   private int displayNumber = 20;
-  private Report eReport = null;
   private int listStart = 1;
   private String[] sTitles = null;
   private boolean allowOrder = true;
@@ -52,8 +47,7 @@ public class ContentViewer extends Block{
   protected int fontSize = 2;
   protected boolean fontBold = false;
   protected String styleAttribute = "font-size: 8pt";
-  private int iBorder = 2;
-	private int iInstId = -1;
+  private int iInstId = -1;
 
   public ContentViewer(){
 		clear = true;
@@ -89,7 +83,6 @@ public class ContentViewer extends Block{
       this.DarkColor = DarkColor;
   }
   public void setBorder(int border){
-    this.iBorder = border;
   }
   public void setHeaderText(String sHeader){
     this.sHeader = sHeader;
@@ -191,7 +184,6 @@ public class ContentViewer extends Block{
   private void doTable(IWContext iwc){
     if(iwc.getSession().getAttribute( prmContent+iInstId)!=null){
       Vector v= (Vector) iwc.getSession().getAttribute(prmContent+iInstId);
-      eReport = ReportService.getSessionReport(iwc);
       listStart = ((Integer)iwc.getSessionAttribute(prmListStart+iInstId)).intValue();
       String[] headers = null;
       if(iwc.getSessionAttribute(prmHeaders+iInstId) != null){
@@ -374,22 +366,6 @@ public class ContentViewer extends Block{
       Collections.reverse(mbs);
     else
       Collections.sort(mbs,CC);
-  }
-
-  private Table makeTable(String[] header,String[][] content){
-    Table T= new Table();
-    for(int j = 0; j < header.length ;j++){
-      Link L = new Link(header[j]);
-      L.addParameter(this.sAction,ContentViewer.ACT2);
-      L.addParameter( prmOrder+iInstId,String.valueOf(j));
-      T.add(L,j+1,1);
-    }
-    for(int i =0; i < content.length;i++){
-        for(int j = 0; j < content[i].length;j++){
-          T.add(content[i][j],j+1,i+2);
-      }
-    }
-    return T;
   }
 
   public void setHeaderLinkProperties(Link linkToClonePropertiesFrom){

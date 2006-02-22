@@ -23,8 +23,6 @@ public class StickerList extends ArrayList {
   private float height = 1.0f;
   /** This is the sticker width. */
   private float width = 1.0f;
-  /** This is the sticker indent. */
-  private float indent = 10f;
   /** Do we want to rotate the page */
   private boolean rotate = false;
   /** This is Rectangle object presenting the page size. */

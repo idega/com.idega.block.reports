@@ -13,16 +13,12 @@ import com.idega.presentation.ui.TextInput;
 
 public class ReportCategoryMaker extends Block{
 
-  private boolean isAdmin;
   private final int ACT0 = 0,ACT1=1,ACT2=2,ACT3=3,ACT4=4;
   private String sAction = "rcm_action";
   private String sActPrm = "0";
   private int iAction = 0;
   private String sName,sInfo;
-  private String sIndex;
-
   public ReportCategoryMaker(){
-    sIndex = "0";
     sName = "";
     sInfo = "";
   }
@@ -179,14 +175,6 @@ public class ReportCategoryMaker extends Block{
   }
 
   public void main(IWContext iwc) {
-    /* try{
-      isAdmin = com.idega.core.accesscontrol.business.AccessControl.isAdmin(iwc);
-    }
-    catch(SQLException e){
-      isAdmin = false;
-    }
-    */
-    isAdmin = true;
     control(iwc);
   }
 
