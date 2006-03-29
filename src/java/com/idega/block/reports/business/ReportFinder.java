@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.idega.block.category.business.CategoryFinder;
+import com.idega.block.category.data.CategoryEntityBMPBean;
 import com.idega.block.category.data.ICCategory;
 import com.idega.block.reports.data.Report;
 import com.idega.block.reports.data.ReportCategory;
@@ -16,6 +17,7 @@ import com.idega.block.reports.data.ReportItem;
 import com.idega.core.component.data.ICObject;
 import com.idega.core.component.data.ICObjectInstance;
 import com.idega.data.EntityFinder;
+import com.idega.data.GenericEntity;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Rectangle;
 
@@ -35,8 +37,8 @@ public class ReportFinder {
 
   public static int	countReportsInCategory(int iCategoryId){
     try {
-      Report eReport = (Report)com.idega.block.reports.data.ReportBMPBean.getStaticInstance(Report.class);
-      return eReport.getNumberOfRecords(com.idega.block.reports.data.ReportBMPBean.getColumnCategoryId(),String.valueOf(iCategoryId));
+      Report eReport = (Report)GenericEntity.getStaticInstance(Report.class);
+      return eReport.getNumberOfRecords(CategoryEntityBMPBean.getColumnCategoryId(),String.valueOf(iCategoryId));
     }
     catch (SQLException ex) {
 
@@ -50,15 +52,15 @@ public class ReportFinder {
   }
 
    public static Report getReport(int iReportId){
-    return (Report) com.idega.block.reports.data.ReportBMPBean.getEntityInstance(Report.class,iReportId);
+    return (Report) GenericEntity.getEntityInstance(Report.class,iReportId);
   }
 
   public static ReportInfo getReportInfo(int iReportInfoId){
-    return (ReportInfo) com.idega.block.reports.data.ReportInfoBMPBean.getEntityInstance(ReportInfo.class,iReportInfoId);
+    return (ReportInfo) GenericEntity.getEntityInstance(ReportInfo.class,iReportInfoId);
   }
 
    public static ReportColumnInfo getReportColumnInfo(int iReportColumnInfoId){
-    return (ReportColumnInfo) com.idega.block.reports.data.ReportColumnInfoBMPBean.getEntityInstance(ReportColumnInfo.class,iReportColumnInfoId);
+    return (ReportColumnInfo) GenericEntity.getEntityInstance(ReportColumnInfo.class,iReportColumnInfoId);
   }
 
   public static ReportColumnInfo getReportInfoFromReport(int iReportId){
@@ -103,7 +105,7 @@ public class ReportFinder {
 
   public static List listOfReports(int iCategoryId){
     try {
-      return EntityFinder.findAllByColumn(((com.idega.block.reports.data.ReportHome)com.idega.data.IDOLookup.getHomeLegacy(Report.class)).createLegacy(),com.idega.block.reports.data.ReportBMPBean.getColumnCategoryId(),iCategoryId);
+      return EntityFinder.findAllByColumn(((com.idega.block.reports.data.ReportHome)com.idega.data.IDOLookup.getHomeLegacy(Report.class)).createLegacy(),CategoryEntityBMPBean.getColumnCategoryId(),iCategoryId);
     }
     catch (Exception ex) {
 
@@ -121,7 +123,7 @@ public class ReportFinder {
    public static List listOfReportItems(int iCatId){
     List L = null;
     try {
-      L = EntityFinder.findAllByColumnOrdered(((com.idega.block.reports.data.ReportItemHome)com.idega.data.IDOLookup.getHomeLegacy(ReportItem.class)).createLegacy(),com.idega.block.reports.data.ReportItemBMPBean.getColumnCategoryId(),iCatId,com.idega.block.reports.data.ReportItemBMPBean.getColumnNameDisplayOrder());
+      L = EntityFinder.findAllByColumnOrdered(((com.idega.block.reports.data.ReportItemHome)com.idega.data.IDOLookup.getHomeLegacy(ReportItem.class)).createLegacy(),CategoryEntityBMPBean.getColumnCategoryId(),iCatId,com.idega.block.reports.data.ReportItemBMPBean.getColumnNameDisplayOrder());
     }
     catch (SQLException ex) {
       ex.printStackTrace();
@@ -170,7 +172,7 @@ public class ReportFinder {
     try {
       ReportInfo info = ((com.idega.block.reports.data.ReportInfoHome)com.idega.data.IDOLookup.getHomeLegacy(ReportInfo.class)).createLegacy();
       StringBuffer sql = new StringBuffer("select * from ").append(com.idega.block.reports.data.ReportInfoBMPBean.getEntityTableName());
-      sql.append(" where ").append(com.idega.block.reports.data.ReportInfoBMPBean.getColumnCategoryId()).append(" = ").append(iCategoryId);
+      sql.append(" where ").append(CategoryEntityBMPBean.getColumnCategoryId()).append(" = ").append(iCategoryId);
       sql.append(" and ").append(com.idega.block.reports.data.ReportInfoBMPBean.getColumnType()).append(" = '").append(type).append("'");
       return EntityFinder.findAll(info,sql.toString());
     }

@@ -3,6 +3,7 @@ package com.idega.block.reports.presentation;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.idega.block.category.data.CategoryEntityBMPBean;
 import com.idega.block.reports.business.ReportEntityHandler;
 import com.idega.block.reports.data.ReportEntity;
 import com.idega.block.reports.data.ReportItem;
@@ -115,7 +116,7 @@ public class ReportItemizer extends Block implements Reports{
   private PresentationObject doView(IWContext iwc){
     List L = null;
     try{
-      L = EntityFinder.findAllByColumn(((com.idega.block.reports.data.ReportItemHome)com.idega.data.IDOLookup.getHomeLegacy(ReportItem.class)).createLegacy(),com.idega.block.reports.data.ReportItemBMPBean.getColumnCategoryId(),iCategoryId);
+      L = EntityFinder.findAllByColumn(((com.idega.block.reports.data.ReportItemHome)com.idega.data.IDOLookup.getHomeLegacy(ReportItem.class)).createLegacy(),CategoryEntityBMPBean.getColumnCategoryId(),iCategoryId);
     }
     catch(Exception e){L = null;}
     Table T = new Table();

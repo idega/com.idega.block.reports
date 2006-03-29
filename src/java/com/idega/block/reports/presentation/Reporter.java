@@ -16,6 +16,7 @@ import com.idega.idegaweb.IWApplicationContext;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWMainApplication;
 import com.idega.idegaweb.IWResourceBundle;
+import com.idega.io.MediaWritable;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.Image;
 import com.idega.presentation.PresentationObject;
@@ -284,7 +285,7 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
     L.addParameter(PRM_REPORTID,iReportId);
     L.addParameter(ReportWriter.prmReportId,iReportId);
     L.addParameter(ReportWriter.prmReportInfoId,iReportInfoId);
-    L.addParameter(ReportWriter.PRM_WRITABLE_CLASS,IWMainApplication.getEncryptedClassName(ReportWriter.class));
+    L.addParameter(MediaWritable.PRM_WRITABLE_CLASS,IWMainApplication.getEncryptedClassName(ReportWriter.class));
     return L;
   }
 
@@ -295,7 +296,7 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
     L.addParameter(PRM_REPORTID,iReportId);
     L.addParameter(ReportWriter.prmReportId,iReportId);
     L.addParameter(ReportWriter.prmPrintType,ReportWriter.TXT);
-    L.addParameter(ReportWriter.PRM_WRITABLE_CLASS,IWMainApplication.getEncryptedClassName(ReportWriter.class));
+    L.addParameter(MediaWritable.PRM_WRITABLE_CLASS,IWMainApplication.getEncryptedClassName(ReportWriter.class));
     return L;
   }
 
@@ -306,7 +307,7 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
     L.addParameter(PRM_REPORTID,iReportId);
     L.addParameter(ReportWriter.prmReportId,iReportId);
     L.addParameter(ReportWriter.prmPrintType,ReportWriter.PDF);
-    L.addParameter(ReportWriter.PRM_WRITABLE_CLASS,IWMainApplication.getEncryptedClassName(ReportWriter.class));
+    L.addParameter(MediaWritable.PRM_WRITABLE_CLASS,IWMainApplication.getEncryptedClassName(ReportWriter.class));
     return L;
   }
 
@@ -317,7 +318,7 @@ public class Reporter extends CategoryBlock implements Builderaware,Reports{
     L.addParameter(PRM_REPORTID,iReportId);
     L.addParameter(ReportWriter.prmReportId,iReportId);
     L.addParameter(ReportWriter.prmPrintType,ReportWriter.XLS);
-    L.addParameter(ReportWriter.PRM_WRITABLE_CLASS,IWMainApplication.getEncryptedClassName(ReportWriter.class));
+    L.addParameter(MediaWritable.PRM_WRITABLE_CLASS,IWMainApplication.getEncryptedClassName(ReportWriter.class));
     return L;
   }
 

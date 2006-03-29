@@ -7,6 +7,7 @@ import com.idega.block.reports.business.ReportBusiness;
 import com.idega.block.reports.business.ReportFinder;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
+import com.idega.idegaweb.block.presentation.Builderaware;
 import com.idega.idegaweb.presentation.IWAdminWindow;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.Table;
@@ -205,7 +206,7 @@ public class ReportEditorWindow extends IWAdminWindow {
     super.main(iwc);
     iwb = getBundle(iwc);
     iwrb = getResourceBundle(iwc);
-		core = iwc.getIWMainApplication().getBundle(Reporter.IW_CORE_BUNDLE_IDENTIFIER);
+		core = iwc.getIWMainApplication().getBundle(Builderaware.IW_CORE_BUNDLE_IDENTIFIER);
     String title = iwrb.getLocalizedString("report_editor","Report Editor");
     setTitle(title);
     addTitle(title);

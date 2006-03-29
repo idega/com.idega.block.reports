@@ -10,6 +10,7 @@ import com.idega.core.component.data.ICObject;
 import com.idega.data.IDOLegacyEntity;
 import com.idega.idegaweb.IWBundle;
 import com.idega.idegaweb.IWResourceBundle;
+import com.idega.idegaweb.block.presentation.Builderaware;
 import com.idega.idegaweb.presentation.IWAdminWindow;
 import com.idega.presentation.IWContext;
 import com.idega.presentation.PresentationObject;
@@ -400,7 +401,7 @@ public class ReportItemWindow extends IWAdminWindow {
 	}
 
 	public void main(IWContext iwc) {
-		core = iwc.getIWMainApplication().getBundle(Reporter.IW_CORE_BUNDLE_IDENTIFIER);
+		core = iwc.getIWMainApplication().getBundle(Builderaware.IW_CORE_BUNDLE_IDENTIFIER);
 		control(iwc);
 	}
 

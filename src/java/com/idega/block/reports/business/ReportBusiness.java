@@ -2,6 +2,7 @@ package com.idega.block.reports.business;
 
 import com.idega.block.reports.data.*;
 import com.idega.core.component.data.ICObjectInstance;
+import com.idega.data.GenericEntity;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -202,9 +203,9 @@ public class ReportBusiness {
 
   public static void saveRelatedReportInfo(int iReportId,int[] ReportInfoIds){
     try {
-      com.idega.block.reports.data.ReportBMPBean.getEntityInstance(Report.class,iReportId).removeFrom(ReportInfo.class);
+      GenericEntity.getEntityInstance(Report.class,iReportId).removeFrom(ReportInfo.class);
       for (int i = 0; i < ReportInfoIds.length; i++) {
-        com.idega.block.reports.data.ReportBMPBean.getEntityInstance(Report.class,iReportId).addTo(ReportInfo.class,ReportInfoIds[i]);
+        GenericEntity.getEntityInstance(Report.class,iReportId).addTo(ReportInfo.class,ReportInfoIds[i]);
       }
     }
     catch (Exception ex) {
