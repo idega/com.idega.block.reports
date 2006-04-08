@@ -341,7 +341,7 @@ public class ReportPDFEditor extends Block implements Reports{
 
     //System.err.println("saving");
 
-    int family = 0,size = 0,style = 0,colnr = -1,span = 1;;
+    int family = 0,size = 0,style = 0,colnr = -1,span = 1;
 
     boolean useName = iwc.isParameterSet("usename");
 
