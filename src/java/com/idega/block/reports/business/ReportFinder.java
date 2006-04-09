@@ -66,8 +66,9 @@ public class ReportFinder {
   public static ReportColumnInfo getReportInfoFromReport(int iReportId){
     try {
       List l = EntityFinder.findAllByColumn(((com.idega.block.reports.data.ReportColumnInfoHome)com.idega.data.IDOLookup.getHomeLegacy(ReportColumnInfo.class)).createLegacy(),com.idega.block.reports.data.ReportColumnInfoBMPBean.getColumnReportId(),iReportId);
-      if(l!=null)
-        return (ReportColumnInfo)l.get(0);
+      if(l!=null) {
+				return (ReportColumnInfo)l.get(0);
+			}
     }
     catch (Exception ex) {
       ex.printStackTrace();
@@ -160,8 +161,9 @@ public class ReportFinder {
       Hashtable H = new Hashtable(L.size());
       while (iter.hasNext()) {
         info = (ReportColumnInfo) iter.next();
-        if(!H.containsKey(new Integer(info.getColumnNumber())))
-          H.put(new Integer(info.getColumnNumber()),info);
+        if(!H.containsKey(new Integer(info.getColumnNumber()))) {
+					H.put(new Integer(info.getColumnNumber()),info);
+				}
       }
       return H;
     }
@@ -186,10 +188,12 @@ public class ReportFinder {
     try {
       ReportInfo info = ((com.idega.block.reports.data.ReportInfoHome)com.idega.data.IDOLookup.getHomeLegacy(ReportInfo.class)).createLegacy();
       StringBuffer sql = new StringBuffer("select * from ").append(com.idega.block.reports.data.ReportInfoBMPBean.getEntityTableName());
-      if(type!=null)
-        sql.append(" where ").append(com.idega.block.reports.data.ReportInfoBMPBean.getColumnType()).append(" = '").append(type).append("'");
-      else
-        sql.append(" order by ").append(com.idega.block.reports.data.ReportInfoBMPBean.getColumnType());
+      if(type!=null) {
+				sql.append(" where ").append(com.idega.block.reports.data.ReportInfoBMPBean.getColumnType()).append(" = '").append(type).append("'");
+			}
+			else {
+				sql.append(" order by ").append(com.idega.block.reports.data.ReportInfoBMPBean.getColumnType());
+			}
       return EntityFinder.findAll(info,sql.toString());
     }
     catch (Exception ex) {
@@ -225,14 +229,18 @@ public class ReportFinder {
   public static String[] pageSizes = { "A4","A3","A2" };
 
   public static Rectangle getPageSize(String page){
-    if(page.equals("A4"))
-      return PageSize.A4;
-    else if(page.equals("A3"))
-      return PageSize.A3;
-    else if(page.equals("A2"))
-      return PageSize.A2;
-    else
-      return PageSize.A4;
+    if(page.equals("A4")) {
+			return PageSize.A4;
+		}
+		else if(page.equals("A3")) {
+			return PageSize.A3;
+		}
+		else if(page.equals("A2")) {
+			return PageSize.A2;
+		}
+		else {
+			return PageSize.A4;
+		}
 
   }
 

@@ -261,10 +261,9 @@ public class ReportEntityHandler {
         return true;
 
       }
-
-      else
-
-        return false;
+			else {
+				return false;
+			}
 
     }
 
@@ -319,10 +318,9 @@ public class ReportEntityHandler {
       return true;
 
       }
-
-      else
-
-        return false;
+			else {
+				return false;
+			}
 
     }
 

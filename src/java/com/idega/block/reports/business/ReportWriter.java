@@ -55,38 +55,42 @@ public class ReportWriter implements MediaWritable {
 	}
 	public void init(HttpServletRequest req, IWContext iwma) {
 		if (req.getParameter(prmReportId) != null) {
-			eReport = ReportFinder.getReport(Integer.parseInt(req.getParameter(prmReportId)));
+			this.eReport = ReportFinder.getReport(Integer.parseInt(req.getParameter(prmReportId)));
 			if (req.getParameter(prmReportInfoId) != null) {
-				eReportInfo = ReportFinder.getReportInfo(Integer.parseInt(req.getParameter(prmReportInfoId)));
-				if (eReportInfo.getType().equals("sticker"))
-					buffer = StickerReport.writeStickerList(eReport, eReportInfo);
-				else if (eReportInfo.getType().equals("columns"))
-					System.err.println("not sticker could it be " + eReportInfo.getType());
-				else
-					System.err.println("not sticker could it be " + eReportInfo.getType());
+				this.eReportInfo = ReportFinder.getReportInfo(Integer.parseInt(req.getParameter(prmReportInfoId)));
+				if (this.eReportInfo.getType().equals("sticker")) {
+					this.buffer = StickerReport.writeStickerList(this.eReport, this.eReportInfo);
+				}
+				else if (this.eReportInfo.getType().equals("columns")) {
+					System.err.println("not sticker could it be " + this.eReportInfo.getType());
+				}
+				else {
+					System.err.println("not sticker could it be " + this.eReportInfo.getType());
+				}
 			}
 			else if (req.getParameter(prmPrintType) != null) {
 				String type = req.getParameter(prmPrintType);
 				if (type.equals(PDF)) {
-					buffer = writePDF(eReport);
+					this.buffer = writePDF(this.eReport);
 				}
 				else if (type.equals(XLS)) {
-					buffer = writeXLS(eReport);
+					this.buffer = writeXLS(this.eReport);
 				}
 				else if (type.equals(TXT)) {
-					buffer = writeTXT(eReport);
+					this.buffer = writeTXT(this.eReport);
 				}
 			}
 		}
 	}
 	public String getMimeType() {
-		if (buffer != null)
-			return buffer.getMimeType();
+		if (this.buffer != null) {
+			return this.buffer.getMimeType();
+		}
 		return "application/pdf";
 	}
 	public void writeTo(OutputStream out) throws IOException {
-		if (buffer != null) {
-			MemoryInputStream mis = new MemoryInputStream(buffer);
+		if (this.buffer != null) {
+			MemoryInputStream mis = new MemoryInputStream(this.buffer);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			// Read the entire contents of the file.
 			while (mis.available() > 0) {
@@ -94,8 +98,9 @@ public class ReportWriter implements MediaWritable {
 			}
 			baos.writeTo(out);
 		}
-		else
+		else {
 			System.err.println("buffer is null");
+		}
 	}
 	public static boolean writeXLSReport(String[] Headers, String[][] Content, OutputStream out) {
 		boolean returner = false;
@@ -218,10 +223,12 @@ public class ReportWriter implements MediaWritable {
 		    }    	
  	    	mos.close();
 	    }
-		if (type.equals(XLS))
+		if (type.equals(XLS)) {
 			buffer.setMimeType("application/x-msexcel");
-		else
+		}
+		else {
 			buffer.setMimeType("text/plain");
+		}
 		return buffer;
 	}
 	public static MemoryFileBuffer writePDF(Report report) {
@@ -305,8 +312,9 @@ public class ReportWriter implements MediaWritable {
 		    try {
 		    	if (stmt != null)  {
 		    		stmt.close();
-					if (Conn != null)
+					if (Conn != null) {
 						ConnectionBroker.freeConnection(Conn);
+					}
 		    	}
 		    }
 	 	    catch (SQLException statementCloseEx) {
@@ -323,8 +331,9 @@ public class ReportWriter implements MediaWritable {
 		datatable.setSpacing(0.0f);
 		datatable.setBorder(Rectangle.NO_BORDER);
 		datatable.setWidth(100);
-		if (sizes != null)
+		if (sizes != null) {
 			datatable.setWidths(sizes);
+		}
 		for (int i = 0; i < headers.length; i++) {
 			//datatable.addCell(Headers[i]);
 			Cell cell = new Cell(new Phrase(headers[i], new Font(Font.HELVETICA, 12, Font.BOLD)));

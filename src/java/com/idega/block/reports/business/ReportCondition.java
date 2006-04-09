@@ -70,9 +70,9 @@ public class ReportCondition {
 
 	private void init() {
 
-		if (Item.getField() != null) {
+		if (this.Item.getField() != null) {
 
-			bField = true;
+			this.bField = true;
 
 			StringBuffer sb = new StringBuffer(this.Item.getMainTable());
 
@@ -104,25 +104,25 @@ public class ReportCondition {
 
 		StringBuffer sb = new StringBuffer("");
 
-		if (bCondition && bField) {
+		if (this.bCondition && this.bField) {
 
-			if (sOperator.equalsIgnoreCase("BETWEEN") && sVarOne != null && sVarTwo != null) {
+			if (this.sOperator.equalsIgnoreCase("BETWEEN") && this.sVarOne != null && this.sVarTwo != null) {
 
 				sb.append(this.sJoin);
 
 				sb.append(" BETWEEN '");
 
-				sb.append(sVarOne);
+				sb.append(this.sVarOne);
 
 				sb.append("' AND '");
 
-				sb.append(sVarTwo);
+				sb.append(this.sVarTwo);
 
 				sb.append("'");
 
 			}
 
-			else if (sOperator.equalsIgnoreCase("IN")) {
+			else if (this.sOperator.equalsIgnoreCase("IN")) {
 
 				sb.append(this.sJoin);
 
@@ -130,7 +130,7 @@ public class ReportCondition {
 
 				sb.append(" BETWEEN '");
 
-				sb.append(sVarOne);
+				sb.append(this.sVarOne);
 
 			}
 
@@ -168,9 +168,9 @@ public class ReportCondition {
 
 		this.sCondition = sb.toString();
 
-		if (this.Item.getConditionType().equalsIgnoreCase("I"))
-
-			sCondition = sCondition.replace("'".charAt(0), " ".charAt(0));
+		if (this.Item.getConditionType().equalsIgnoreCase("I")) {
+			this.sCondition = this.sCondition.replace("'".charAt(0), " ".charAt(0));
+		}
 
 		return this.sCondition;
 
@@ -198,11 +198,11 @@ public class ReportCondition {
 
 		if (st.countTokens() == 2) {
 
-			sVars = new String[2];
+			this.sVars = new String[2];
 
-			sVars[0] = st.nextToken();
+			this.sVars[0] = st.nextToken();
 
-			sVars[1] = st.nextToken();
+			this.sVars[1] = st.nextToken();
 
 		}
 
@@ -210,7 +210,7 @@ public class ReportCondition {
 
 			this.sVars = new String[1];
 
-			sVars[0] = sVar;
+			this.sVars[0] = sVar;
 
 		}
 
@@ -240,69 +240,69 @@ public class ReportCondition {
 
 	public boolean isSelect() {
 
-		return bSelect;
+		return this.bSelect;
 
 	}
 
 	public void setColumnOrder(Integer order) {
 
-		colOrder = order;
+		this.colOrder = order;
 
 	}
 
 	public Integer getColumnOrder() {
 
-		return colOrder;
+		return this.colOrder;
 
 	}
 
 	public void setOrder(Integer order) {
 
-		orderNumber = order;
+		this.orderNumber = order;
 
 	}
 
 	public Integer getOrder() {
 
-		return orderNumber;
+		return this.orderNumber;
 
 	}
 
 	public String getOperator() {
 
-		return sOperator;
+		return this.sOperator;
 
 	}
 
 	public void setOperator(String sOp) {
 
-		sOperator = sOp;
+		this.sOperator = sOp;
 
 	}
 
 	public String getFunction() {
 
-		return sOperator;
+		return this.sOperator;
 
 	}
 
 	public void setFunction(String sOp) {
 
-		bFunction = true;
+		this.bFunction = true;
 
-		sOperator = sOp;
+		this.sOperator = sOp;
 
 	}
 
 	public boolean isFunction() {
 
-		return bFunction;
+		return this.bFunction;
 
 	}
 
 	public String getFieldFullName() {
 
-		return Item.getMainTable() + "." + Item.getField();
+		return this.Item.getMainTable() + "." + this.Item.getField();
 
 	}
 
@@ -314,13 +314,12 @@ public class ReportCondition {
 
 	public String getField() {
 
-		if (isFunction())
-
+		if (isFunction()) {
 			return getFieldFunction();
-
-		else
-
+		}
+		else {
 			return getFieldFullName();
+		}
 
 	}
 

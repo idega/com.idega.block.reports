@@ -40,7 +40,7 @@ public class ReportItemizer extends Block implements Reports{
   }
 
   protected void control(IWContext iwc){
-    if(isAdmin){
+    if(this.isAdmin){
       try{
         Form F = new Form();
         Table T = new Table();
@@ -53,11 +53,11 @@ public class ReportItemizer extends Block implements Reports{
           doUpdateEntityForm(iwc);
         }
 
-        if(iwc.getParameter(sAction) != null){
-          sActPrm = iwc.getParameter(sAction);
+        if(iwc.getParameter(this.sAction) != null){
+          this.sActPrm = iwc.getParameter(this.sAction);
           try{
-            iAction = Integer.parseInt(sActPrm);
-            switch(iAction){
+            this.iAction = Integer.parseInt(this.sActPrm);
+            switch(this.iAction){
               case ACT1: T.add(doEntityAdd(iwc),1,3);    break;
               case ACT2: T.add(doView(iwc),1,3);         break;
               case ACT3: T.add(doChange(iwc),1,3);       break;
@@ -83,7 +83,7 @@ public class ReportItemizer extends Block implements Reports{
   }
 
   public void main(IWContext iwc){
-    isAdmin = iwc.hasEditPermission(this);
+    this.isAdmin = iwc.hasEditPermission(this);
     control(iwc);
 
   }
@@ -98,14 +98,14 @@ public class ReportItemizer extends Block implements Reports{
     LinkTable.setWidth(last,"100%");
     Link Link1 = new Link("New");
     Link1.setFontColor(LightColor);
-    Link1.addParameter(sAction,String.valueOf(ACT3));
+    Link1.addParameter(this.sAction,String.valueOf(ACT3));
     Link Link2 = new Link("View");
     Link2.setFontColor(LightColor);
-    Link2.addParameter(sAction,String.valueOf(ACT2));
+    Link2.addParameter(this.sAction,String.valueOf(ACT2));
     Link Link3 = new Link("Entity");
     Link3.setFontColor(LightColor);
-    Link3.addParameter(sAction,String.valueOf(ACT1));
-    if(isAdmin){
+    Link3.addParameter(this.sAction,String.valueOf(ACT1));
+    if(this.isAdmin){
       LinkTable.add(Link1,1,1);
       LinkTable.add(Link2,2,1);
       LinkTable.add(Link3,2,1);
@@ -116,7 +116,7 @@ public class ReportItemizer extends Block implements Reports{
   private PresentationObject doView(IWContext iwc){
     List L = null;
     try{
-      L = EntityFinder.findAllByColumn(((com.idega.block.reports.data.ReportItemHome)com.idega.data.IDOLookup.getHomeLegacy(ReportItem.class)).createLegacy(),CategoryEntityBMPBean.getColumnCategoryId(),iCategoryId);
+      L = EntityFinder.findAllByColumn(((com.idega.block.reports.data.ReportItemHome)com.idega.data.IDOLookup.getHomeLegacy(ReportItem.class)).createLegacy(),CategoryEntityBMPBean.getColumnCategoryId(),this.iCategoryId);
     }
     catch(Exception e){L = null;}
     Table T = new Table();
@@ -131,9 +131,9 @@ public class ReportItemizer extends Block implements Reports{
         T.add(Edit.formatText(i+1),b++,a);
         ReportItem RI = (ReportItem) L.get(i);
         Link link = new Link(RI.getName());
-        link.addParameter(sAction,ACT3);
+        link.addParameter(this.sAction,ACT3);
         link.addParameter("repitemid",RI.getID());
-        link.addParameter("rep.cat.drp",iCategoryId);
+        link.addParameter("rep.cat.drp",this.iCategoryId);
         T.add(link,b++,a);
 				T.add(Edit.formatText(RI.getEntityName()),b++,a);
 				T.add(Edit.formatText(RI.getDisplayOrder()),b++,a);
@@ -149,12 +149,12 @@ public class ReportItemizer extends Block implements Reports{
     String sCatId = iwc.getParameter("rep.cat.drp");
     if(sCatId != null){
       int iCatId = Integer.parseInt(sCatId);
-      iCategoryId = iCatId;
-      iwc.setSessionAttribute(sSessPrm,new Integer(iCategoryId));
+      this.iCategoryId = iCatId;
+      iwc.setSessionAttribute(this.sSessPrm,new Integer(this.iCategoryId));
     }
-    else if(iwc.getSessionAttribute(sSessPrm )!=null){
-      iCategoryId = ((Integer)iwc.getSessionAttribute(sSessPrm )).intValue();
-      sCatId = String.valueOf(iCategoryId);
+    else if(iwc.getSessionAttribute(this.sSessPrm )!=null){
+      this.iCategoryId = ((Integer)iwc.getSessionAttribute(this.sSessPrm )).intValue();
+      sCatId = String.valueOf(this.iCategoryId);
     }
     Table T = new Table();
     DropdownMenu drp = ReportObjectHandler.drpCategories("rep.cat.drp",sCatId);
@@ -195,18 +195,18 @@ T.add(Edit.formatText("Display order"),1,a++);
               condtype,conddata,condop,entity,info,displayorder;
     CheckBox isFunction;
 
-    name        = new TextInput(prefix+"name");
-    field       = new TextInput(prefix+"field");
-    table       = new TextInput(prefix+"table");
-    joins       = new TextInput(prefix+"joins");
-    jointables  = new TextInput(prefix+"jointables");
-    condtype    = new TextInput(prefix+"condtype");
-    conddata    = new TextInput(prefix+"conddata");
-    condop      = new TextInput(prefix+"condop");
-    entity      = new TextInput(prefix+"entity");
-    info        = new TextInput(prefix+"info");
-		displayorder= new TextInput(prefix+"disorder");
-		isFunction  = new CheckBox(prefix+"function");
+    name        = new TextInput(this.prefix+"name");
+    field       = new TextInput(this.prefix+"field");
+    table       = new TextInput(this.prefix+"table");
+    joins       = new TextInput(this.prefix+"joins");
+    jointables  = new TextInput(this.prefix+"jointables");
+    condtype    = new TextInput(this.prefix+"condtype");
+    conddata    = new TextInput(this.prefix+"conddata");
+    condop      = new TextInput(this.prefix+"condop");
+    entity      = new TextInput(this.prefix+"entity");
+    info        = new TextInput(this.prefix+"info");
+		displayorder= new TextInput(this.prefix+"disorder");
+		isFunction  = new CheckBox(this.prefix+"function");
 
 
     if(sRepItemId != null){
@@ -278,7 +278,7 @@ T.add(Edit.formatText("Display order"),1,a++);
     Frame.add(T);
     Frame.add(new SubmitButton("risave","Save"));
     Frame.add(new HiddenInput(this.sAction,String.valueOf(Reports.ACT4 )));
-    Frame.add(new HiddenInput("rep.cat.drp",String.valueOf(iCategoryId)));
+    Frame.add(new HiddenInput("rep.cat.drp",String.valueOf(this.iCategoryId)));
 
     return(Frame);
   }
@@ -287,10 +287,11 @@ T.add(Edit.formatText("Display order"),1,a++);
 
     String sEntId = iwc.getParameter("ent_drp");
     int iEntId = -1;
-    if(sEntId !=null)
-      iEntId = Integer.parseInt(sEntId);
+    if(sEntId !=null) {
+			iEntId = Integer.parseInt(sEntId);
+		}
     Table T = new Table();
-    T.add(new HiddenInput(sAction,String.valueOf(ACT1)));
+    T.add(new HiddenInput(this.sAction,String.valueOf(ACT1)));
     DropdownMenu drp = getEntityDrp(getReportEntities(),"ent_drp",sEntId);
     Edit.setStyle(drp);
     drp.setToSubmit();
@@ -350,7 +351,7 @@ T.add(Edit.formatText("Display order"),1,a++);
       String[] columns  = ent.getVisibleColumnNames();
       for (int i = 0; i < len; i++) {
         int nr = Integer.parseInt(s[i]);
-        ReportEntityHandler.saveReportItem(iCategoryId
+        ReportEntityHandler.saveReportItem(this.iCategoryId
             ,ent.getLongName(columns[i])
             ,columns[nr]
             ,ent.getEntityName()
@@ -384,13 +385,15 @@ T.add(Edit.formatText("Display order"),1,a++);
   private DropdownMenu getEntityDrp(List entities,String name,String selected){
     DropdownMenu drp = new DropdownMenu(name);
     drp.addDisabledMenuElement("-1","Entity");
-    if(entities != null)
-    for (int i = 0; i < entities.size(); i++) {
-      ReportEntity RE = (ReportEntity) entities.get(i);
-      drp.addMenuElement(RE.getID(),RE.getEntity());
-    }
-    if(!"".equalsIgnoreCase(selected))
-      drp.setSelectedElement(selected);
+    if(entities != null) {
+			for (int i = 0; i < entities.size(); i++) {
+			  ReportEntity RE = (ReportEntity) entities.get(i);
+			  drp.addMenuElement(RE.getID(),RE.getEntity());
+			}
+		}
+    if(!"".equalsIgnoreCase(selected)) {
+			drp.setSelectedElement(selected);
+		}
     return drp;
   }
 
@@ -401,21 +404,21 @@ T.add(Edit.formatText("Display order"),1,a++);
       itemId = Integer.parseInt(entityId);
     }
 
-    int id  = iCategoryId;
+    int id  = this.iCategoryId;
     String name,field,table,joins,jointables,condtype,conddata,condop,entity,info;
 		boolean function;
 
-    name        = iwc.getParameter(prefix+"name");
-    field       = iwc.getParameter(prefix+"field");
-    table       = iwc.getParameter(prefix+"table");
-    joins       = iwc.getParameter(prefix+"joins");
-    jointables  = iwc.getParameter(prefix+"jointables");
-    condtype    = iwc.getParameter(prefix+"condtype");
-    conddata    = iwc.getParameter(prefix+"conddata");
-    condop      = iwc.getParameter(prefix+"condop");
-    entity      = iwc.getParameter(prefix+"entity");
-    info        = iwc.getParameter(prefix+"info");
-		function    = iwc.getParameter(prefix+"function")!=null;
+    name        = iwc.getParameter(this.prefix+"name");
+    field       = iwc.getParameter(this.prefix+"field");
+    table       = iwc.getParameter(this.prefix+"table");
+    joins       = iwc.getParameter(this.prefix+"joins");
+    jointables  = iwc.getParameter(this.prefix+"jointables");
+    condtype    = iwc.getParameter(this.prefix+"condtype");
+    conddata    = iwc.getParameter(this.prefix+"conddata");
+    condop      = iwc.getParameter(this.prefix+"condop");
+    entity      = iwc.getParameter(this.prefix+"entity");
+    info        = iwc.getParameter(this.prefix+"info");
+		function    = iwc.getParameter(this.prefix+"function")!=null;
     if(id != 0){
       if(itemId > 0){
         ReportEntityHandler.updateReportItem(itemId,id,name,field,table,joins, jointables,condtype,conddata,condop,entity,info,function);

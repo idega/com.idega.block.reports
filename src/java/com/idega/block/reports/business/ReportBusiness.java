@@ -83,10 +83,12 @@ public class ReportBusiness {
                   cat.setName(Name);
                   cat.setDescription(info);
 
-                  if(update)
-                    cat.update();
-                  else
-                    cat.insert();
+                  if(update) {
+										cat.update();
+									}
+									else {
+										cat.insert();
+									}
                           // Binding category to instanceId
                   if(iObjectInstanceId > 0){
                           ICObjectInstance objIns = ((com.idega.core.component.data.ICObjectInstanceHome)com.idega.data.IDOLookup.getHomeLegacy(ICObjectInstance.class)).findByPrimaryKeyLegacy(iObjectInstanceId);
@@ -128,8 +130,9 @@ public class ReportBusiness {
       }
       return true;
     }
-    else
-      return false;
+		else {
+			return false;
+		}
 
   }
 
@@ -175,10 +178,12 @@ public class ReportBusiness {
 
   public static boolean saveReportColumnInfo(ReportColumnInfo info){
     try{
-      if(info.getID() > 0)
-        info.update();
-      else
-        info.insert();
+      if(info.getID() > 0) {
+				info.update();
+			}
+			else {
+				info.insert();
+			}
         return true;
       }
     catch(SQLException ex){
@@ -189,10 +194,12 @@ public class ReportBusiness {
 
   public static boolean saveReportInfo(ReportInfo info){
     try{
-      if(info.getID() > 0)
-        info.update();
-      else
-        info.insert();
+      if(info.getID() > 0) {
+				info.update();
+			}
+			else {
+				info.insert();
+			}
         return true;
       }
     catch(SQLException ex){

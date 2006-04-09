@@ -39,10 +39,10 @@ public class StickerList extends ArrayList {
 
   public StickerList(){
     super(10);
-    defaultCell.setIndent(10);
-    defaultCell.setBorder(Rectangle.BOX);
-    defaultCell.setLeading(1.1f,1.2f);
-    border = Rectangle.BOX;
+    this.defaultCell.setIndent(10);
+    this.defaultCell.setBorder(Rectangle.BOX);
+    this.defaultCell.setLeading(1.1f,1.2f);
+    this.border = Rectangle.BOX;
   }
 
   /** Gets the default <CODE>PdfPCell</CODE> that will be used as
@@ -51,7 +51,7 @@ public class StickerList extends ArrayList {
      * @return default <CODE>PdfPCell</CODE>
      */
     public PdfPCell getDefaultCell() {
-        return defaultCell;
+        return this.defaultCell;
     }
 
   /**
@@ -60,7 +60,7 @@ public class StickerList extends ArrayList {
    * @return	a value
    */
     public final int border() {
-        return border;
+        return this.border;
     }
 
   /**
@@ -69,7 +69,7 @@ public class StickerList extends ArrayList {
    * @return	a value
    */
     public final float margin() {
-        return margin;
+        return this.margin;
     }
 
     /**

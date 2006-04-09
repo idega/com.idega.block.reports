@@ -84,11 +84,11 @@ public class ReportPrinter extends Block implements Reports{
 
   public void main(IWContext iwc){
 
-    iwrb = getResourceBundle(iwc);
+    this.iwrb = getResourceBundle(iwc);
 
-    iwb = getBundle(iwc);
+    this.iwb = getBundle(iwc);
 
-    pdfImage = iwb.getImage("/shared/pdf.gif");
+    this.pdfImage = this.iwb.getImage("/shared/pdf.gif");
 
     if(iwc.isParameterSet(PRM_REPORTID)){
 
@@ -100,9 +100,9 @@ public class ReportPrinter extends Block implements Reports{
 
           int[] savedids = new int[0];
 
-          if(sids!=null)
-
-           savedids = new int[sids.length];
+          if(sids!=null) {
+						savedids = new int[sids.length];
+					}
 
           for (int i = 0; i < savedids.length; i++) {
 
@@ -140,11 +140,11 @@ public class ReportPrinter extends Block implements Reports{
 
     DataTable T = new DataTable();
 
-    T.addTitle(iwrb.getLocalizedString("report_printouts","Report Printouts"));
+    T.addTitle(this.iwrb.getLocalizedString("report_printouts","Report Printouts"));
 
     T.setTitlesHorizontal(true);
 
-    T.addButton(new SubmitButton(iwrb.getLocalizedImageButton("save","Save"),"savereps"));
+    T.addButton(new SubmitButton(this.iwrb.getLocalizedImageButton("save","Save"),"savereps"));
 
 
 
@@ -152,19 +152,19 @@ public class ReportPrinter extends Block implements Reports{
 
     int col = 1;
 
-    T.add(Edit.formatText(iwrb.getLocalizedString("name","Name")),col++,row);
+    T.add(Edit.formatText(this.iwrb.getLocalizedString("name","Name")),col++,row);
 
-    T.add(Edit.formatText(iwrb.getLocalizedString("type","type")),col++,row);
+    T.add(Edit.formatText(this.iwrb.getLocalizedString("type","type")),col++,row);
 
-    T.add(Edit.formatText(iwrb.getLocalizedString("description","Description")),col++,row);
+    T.add(Edit.formatText(this.iwrb.getLocalizedString("description","Description")),col++,row);
 
-    T.add(Edit.formatText(iwrb.getLocalizedString("pagesize","Pagesize")),col++,row);
+    T.add(Edit.formatText(this.iwrb.getLocalizedString("pagesize","Pagesize")),col++,row);
 
-    T.add(Edit.formatText(iwrb.getLocalizedString("orientation","Orientation")),col++,row);
+    T.add(Edit.formatText(this.iwrb.getLocalizedString("orientation","Orientation")),col++,row);
 
-    T.add(Edit.formatText(iwrb.getLocalizedString("saved","Saved")),col++,row);
+    T.add(Edit.formatText(this.iwrb.getLocalizedString("saved","Saved")),col++,row);
 
-    T.add(Edit.formatText(iwrb.getLocalizedString("print","Print")),col++,row);
+    T.add(Edit.formatText(this.iwrb.getLocalizedString("print","Print")),col++,row);
 
 
 
@@ -180,9 +180,9 @@ public class ReportPrinter extends Block implements Reports{
 
     unsaved = new Vector(infos);
 
-      if(repinfos!=null)
-
-        unsaved.removeAll(repinfos);
+      if(repinfos!=null) {
+				unsaved.removeAll(repinfos);
+			}
 
     }
 
@@ -232,7 +232,7 @@ public class ReportPrinter extends Block implements Reports{
 
         T.add(box,col++,row);
 
-        T.add(getPrintLink(iwac,pdfImage,new Integer(report.getPrimaryKey().toString()).intValue(),new Integer(info.getPrimaryKey().toString()).intValue()),col++,row);
+        T.add(getPrintLink(iwac,this.pdfImage,new Integer(report.getPrimaryKey().toString()).intValue(),new Integer(info.getPrimaryKey().toString()).intValue()),col++,row);
 
         row++;
 
@@ -276,7 +276,7 @@ public class ReportPrinter extends Block implements Reports{
 
         T.add(box,col++,row);
 
-        T.add(getPrintLink(iwac,pdfImage,new Integer(report.getPrimaryKey().toString() ).intValue(),new Integer(info.getPrimaryKey().toString()).intValue()),col++,row);
+        T.add(getPrintLink(iwac,this.pdfImage,new Integer(report.getPrimaryKey().toString() ).intValue(),new Integer(info.getPrimaryKey().toString()).intValue()),col++,row);
 
         row++;
 

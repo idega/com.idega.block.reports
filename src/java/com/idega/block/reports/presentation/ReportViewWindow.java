@@ -36,14 +36,14 @@ public class ReportViewWindow extends IWAdminWindow implements Reports{
 
   public void main(IWContext iwc) throws Exception{
 
-    iwrb = getResourceBundle(iwc);
+    this.iwrb = getResourceBundle(iwc);
     //ReportContentViewer RCV = new ReportContentViewer();
 
     ReportViewer rv = new ReportViewer();
 
     rv.setShowLinks(false);
     add(rv);
-    String title = iwrb.getLocalizedString("report_viewer","Report Viewer");
+    String title = this.iwrb.getLocalizedString("report_viewer","Report Viewer");
     setTitle(title);
     addTitle(title);
     addHeaderObject(rv.getLinks());

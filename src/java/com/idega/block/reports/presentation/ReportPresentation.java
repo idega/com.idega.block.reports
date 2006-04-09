@@ -57,12 +57,15 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
   protected abstract void control(IWContext iwc);
 
   public void setColors(String LightColor,String MainColor,String DarkColor){
-    if(LightColor.startsWith("#"))
-      ReportPresentation.LightColor = LightColor;
-    if(MainColor.startsWith("#"))
-      ReportPresentation.MiddleColor = MainColor;
-    if(DarkColor.startsWith("#"))
-      ReportPresentation.DarkColor = DarkColor;
+    if(LightColor.startsWith("#")) {
+			ReportPresentation.LightColor = LightColor;
+		}
+    if(MainColor.startsWith("#")) {
+			ReportPresentation.MiddleColor = MainColor;
+		}
+    if(DarkColor.startsWith("#")) {
+			ReportPresentation.DarkColor = DarkColor;
+		}
   }
   public void setBorder(int border){
     ReportPresentation.iBorder = border;
@@ -94,33 +97,33 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
     this.makeHeader();
   }
   protected void makeMainFrame(){
-    MainFrame = new Table(1,2);
-    MainFrame.setWidth("100%");
-    MainFrame.setCellspacing(0);
-    MainFrame.setCellpadding(0);
-    MainFrame.setBorder(BORDER);
-    add(MainFrame);
+    this.MainFrame = new Table(1,2);
+    this.MainFrame.setWidth("100%");
+    this.MainFrame.setCellspacing(0);
+    this.MainFrame.setCellpadding(0);
+    this.MainFrame.setBorder(BORDER);
+    add(this.MainFrame);
   }
   protected void makeFrame(){
-    Frame = new Table(1,2);
-    Frame.setCellspacing(0);
-    Frame.setCellpadding(0);
-    Frame.setWidth("100%");
-    Frame.setBorder(BORDER);
+    this.Frame = new Table(1,2);
+    this.Frame.setCellspacing(0);
+    this.Frame.setCellpadding(0);
+    this.Frame.setWidth("100%");
+    this.Frame.setBorder(BORDER);
     this.addFrame();
   }
   protected void makeHeader(){
-    HeaderFrame = new Table();
-    if(sHeader != null){
-      HeaderFrame = new Table(2,1);
-      HeaderFrame.setColumnAlignment(2,"right");
+    this.HeaderFrame = new Table();
+    if(this.sHeader != null){
+      this.HeaderFrame = new Table(2,1);
+      this.HeaderFrame.setColumnAlignment(2,"right");
       Text T = new Text(this.sHeader);
       T.setBold();
       T.setFontColor(ReportPresentation.DarkColor);
-      HeaderFrame.add(T,1,1);
+      this.HeaderFrame.add(T,1,1);
     }
-    HeaderFrame.setBorder(BORDER);
-    this.addHeader(HeaderFrame);
+    this.HeaderFrame.setBorder(BORDER);
+    this.addHeader(this.HeaderFrame);
   }
   protected void addFrame(){
     Table BorderTable = new Table(1,1);
@@ -135,7 +138,7 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
     whiteTable.setCellpadding(2);
     whiteTable.setCellspacing(0);
     whiteTable.setWidth("100%");
-    whiteTable.add(Frame);
+    whiteTable.add(this.Frame);
     BorderTable.add(whiteTable);
     this.MainFrame.add(BorderTable,1,2);
   }
@@ -153,8 +156,9 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
     this.HeaderFrame.add(T);
   }
   protected void addToRightHeader(PresentationObject T){
-    if(sHeader != null)
-    this.HeaderFrame.add(T,2,1);
+    if(this.sHeader != null) {
+			this.HeaderFrame.add(T,2,1);
+		}
   }
   protected void addMsg(PresentationObject T){
 
@@ -163,8 +167,9 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
     Text T= new Text();
     if(s!=null){
       T= new Text(s);
-      if(fontBold)
-      T.setBold();
+      if(fontBold) {
+				T.setBold();
+			}
       T.setFontColor(TextFontColor);
       T.setFontSize(fontSize);
     }
@@ -177,7 +182,7 @@ public abstract class ReportPresentation extends com.idega.presentation.Block {
     O.setMarkupAttribute("style",styleAttribute);
   }
   public void main(IWContext iwc){
-    isAdmin = iwc.hasEditPermission(this);
+    this.isAdmin = iwc.hasEditPermission(this);
 
     control(iwc);
   }

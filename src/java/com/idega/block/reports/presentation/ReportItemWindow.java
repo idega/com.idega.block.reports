@@ -61,10 +61,10 @@ public class ReportItemWindow extends IWAdminWindow {
 				Table T = new Table();
 
 				if (iwc.isParameterSet(prmCategoryId)) {
-					iCategoryId = Integer.parseInt(iwc.getParameter(prmCategoryId));
+					this.iCategoryId = Integer.parseInt(iwc.getParameter(prmCategoryId));
 				}
 
-				System.err.println("CategoryId :" + iCategoryId);
+				System.err.println("CategoryId :" + this.iCategoryId);
 
 				if (iwc.getParameter("risave") != null) {
 					doUpdate(iwc);
@@ -72,21 +72,21 @@ public class ReportItemWindow extends IWAdminWindow {
 				else if (iwc.getParameter("ea_apply") != null || iwc.getParameter("ea_ok") != null) {
 					doUpdateEntityForm(iwc);
 				}
-				T.add(getLinkTable(iCategoryId), 1, 2);
+				T.add(getLinkTable(this.iCategoryId), 1, 2);
 
-				if (iwc.getParameter(sAction) != null) {
-					sActPrm = iwc.getParameter(sAction);
+				if (iwc.getParameter(this.sAction) != null) {
+					this.sActPrm = iwc.getParameter(this.sAction);
 					try {
-						iAction = Integer.parseInt(sActPrm);
-						switch (iAction) {
+						this.iAction = Integer.parseInt(this.sActPrm);
+						switch (this.iAction) {
 							case ACT1:
-								T.add(doEntityAdd(iwc, iCategoryId), 1, 3);
+								T.add(doEntityAdd(iwc, this.iCategoryId), 1, 3);
 								break;
 							case ACT2:
-								T.add(doView(iwc, iCategoryId), 1, 3);
+								T.add(doView(iwc, this.iCategoryId), 1, 3);
 								break;
 							case ACT3:
-								T.add(doChange(iwc, iCategoryId), 1, 3);
+								T.add(doChange(iwc, this.iCategoryId), 1, 3);
 								break;
 						}
 					}
@@ -95,7 +95,7 @@ public class ReportItemWindow extends IWAdminWindow {
 					}
 				}
 				else {
-					T.add(doView(iwc, iCategoryId), 1, 3);
+					T.add(doView(iwc, this.iCategoryId), 1, 3);
 				}
 				F.add(T);
 				add(F);
@@ -116,13 +116,13 @@ public class ReportItemWindow extends IWAdminWindow {
 		LinkTable.setCellpadding(2);
 		LinkTable.setCellspacing(1);
 		LinkTable.setWidth(last, "100%");
-		Link Link1 = new Link(core.getImage("/shared/create.gif"));
+		Link Link1 = new Link(this.core.getImage("/shared/create.gif"));
 		Link1.addParameter(this.sAction, ACT3);
 		Link1.addParameter(prmCategoryId, iCategoryId);
-		Link Link2 = new Link(core.getImage("/shared/create.gif"));
+		Link Link2 = new Link(this.core.getImage("/shared/create.gif"));
 		Link2.addParameter(this.sAction, ACT2);
 		Link2.addParameter(prmCategoryId, iCategoryId);
-		Link Link3 = new Link(core.getImage("/shared/aid.gif"));
+		Link Link3 = new Link(this.core.getImage("/shared/aid.gif"));
 		Link3.addParameter(this.sAction, ACT1);
 		Link3.addParameter(prmCategoryId, iCategoryId);
 
@@ -147,7 +147,7 @@ public class ReportItemWindow extends IWAdminWindow {
 				T.add(Edit.formatText(i + 1), b++, a);
 				ReportItem RI = (ReportItem) L.get(i);
 				Link link = new Link(RI.getName());
-				link.addParameter(sAction, ACT3);
+				link.addParameter(this.sAction, ACT3);
 				link.addParameter("repitemid", RI.getID());
 				link.addParameter(prmCategoryId, iCategoryId);
 				T.add(link, b++, a);
@@ -190,18 +190,18 @@ public class ReportItemWindow extends IWAdminWindow {
 		CheckBox isFunction;
 		DropdownMenu condtype;
 
-		name = new TextInput(prefix + "name");
-		field = new TextInput(prefix + "field");
-		table = new TextInput(prefix + "table");
-		joins = new TextInput(prefix + "joins");
-		jointables = new TextInput(prefix + "jointables");
-		condtype = ReportObjectHandler.drpTypes(prefix + "condtype", "");
-		conddata = new TextInput(prefix + "conddata");
-		condop = new TextInput(prefix + "condop");
-		entity = new TextInput(prefix + "entity");
-		info = new TextInput(prefix + "info");
-		displayorder = new TextInput(prefix + "disorder");
-		isFunction = new CheckBox(prefix + "function");
+		name = new TextInput(this.prefix + "name");
+		field = new TextInput(this.prefix + "field");
+		table = new TextInput(this.prefix + "table");
+		joins = new TextInput(this.prefix + "joins");
+		jointables = new TextInput(this.prefix + "jointables");
+		condtype = ReportObjectHandler.drpTypes(this.prefix + "condtype", "");
+		conddata = new TextInput(this.prefix + "conddata");
+		condop = new TextInput(this.prefix + "condop");
+		entity = new TextInput(this.prefix + "entity");
+		info = new TextInput(this.prefix + "info");
+		displayorder = new TextInput(this.prefix + "disorder");
+		isFunction = new CheckBox(this.prefix + "function");
 
 		if (sRepItemId != null) {
 			int repItemId = Integer.parseInt(sRepItemId);
@@ -280,10 +280,11 @@ public class ReportItemWindow extends IWAdminWindow {
 
 		String sEntId = iwc.getParameter("ent_drp");
 		String sDataClassName = "";
-		if (iwc.isParameterSet("ent_drp"))
+		if (iwc.isParameterSet("ent_drp")) {
 			sDataClassName = iwc.getParameter("ent_drp");
+		}
 		Table T = new Table();
-		T.add(new HiddenInput(sAction, String.valueOf(ACT1)));
+		T.add(new HiddenInput(this.sAction, String.valueOf(ACT1)));
 		T.add(new HiddenInput(prmCategoryId, String.valueOf(iCategoryId)));
 		DropdownMenu drp = getDataEntityDrop("ent_drp", sEntId);
 		setStyle(drp);
@@ -344,7 +345,7 @@ public class ReportItemWindow extends IWAdminWindow {
 					System.err.println("id from selection box " + s[i]);
 
 					int nr = Integer.parseInt(s[i]);
-					ReportEntityHandler.saveReportItem(iCategoryId, ent.getLongName(columns[i]), columns[nr], ent.getEntityName(), "", "", "I", "", "like", ent.getClass().getName(), "", false);
+					ReportEntityHandler.saveReportItem(this.iCategoryId, ent.getLongName(columns[i]), columns[nr], ent.getEntityName(), "", "", "I", "", "like", ent.getClass().getName(), "", false);
 				}
 			}
 		}
@@ -361,21 +362,21 @@ public class ReportItemWindow extends IWAdminWindow {
 			itemId = Integer.parseInt(entityId);
 		}
 
-		int id = iCategoryId;
+		int id = this.iCategoryId;
 		String name, field, table, joins, jointables, condtype, conddata, condop, entity, info;
 		boolean function;
 
-		name = iwc.getParameter(prefix + "name");
-		field = iwc.getParameter(prefix + "field");
-		table = iwc.getParameter(prefix + "table");
-		joins = iwc.getParameter(prefix + "joins");
-		jointables = iwc.getParameter(prefix + "jointables");
-		condtype = iwc.getParameter(prefix + "condtype");
-		conddata = iwc.getParameter(prefix + "conddata");
-		condop = iwc.getParameter(prefix + "condop");
-		entity = iwc.getParameter(prefix + "entity");
-		info = iwc.getParameter(prefix + "info");
-		function = iwc.getParameter(prefix + "function") != null;
+		name = iwc.getParameter(this.prefix + "name");
+		field = iwc.getParameter(this.prefix + "field");
+		table = iwc.getParameter(this.prefix + "table");
+		joins = iwc.getParameter(this.prefix + "joins");
+		jointables = iwc.getParameter(this.prefix + "jointables");
+		condtype = iwc.getParameter(this.prefix + "condtype");
+		conddata = iwc.getParameter(this.prefix + "conddata");
+		condop = iwc.getParameter(this.prefix + "condop");
+		entity = iwc.getParameter(this.prefix + "entity");
+		info = iwc.getParameter(this.prefix + "info");
+		function = iwc.getParameter(this.prefix + "function") != null;
 		if (id != 0) {
 			if (itemId > 0) {
 				ReportEntityHandler.updateReportItem(itemId, id, name, field, table, joins, jointables, condtype, conddata, condop, entity, info, function);
@@ -401,7 +402,7 @@ public class ReportItemWindow extends IWAdminWindow {
 	}
 
 	public void main(IWContext iwc) {
-		core = iwc.getIWMainApplication().getBundle(Builderaware.IW_CORE_BUNDLE_IDENTIFIER);
+		this.core = iwc.getIWMainApplication().getBundle(Builderaware.IW_CORE_BUNDLE_IDENTIFIER);
 		control(iwc);
 	}
 

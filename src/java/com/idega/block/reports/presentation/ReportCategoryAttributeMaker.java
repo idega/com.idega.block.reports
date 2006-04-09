@@ -1,7 +1,5 @@
 package com.idega.block.reports.presentation;
 
-
-
 import java.sql.SQLException;
 
 import com.idega.block.reports.data.ReportCategory;
@@ -14,442 +12,409 @@ import com.idega.presentation.ui.Form;
 import com.idega.presentation.ui.SubmitButton;
 import com.idega.presentation.ui.TextInput;
 
+public class ReportCategoryAttributeMaker extends Block {
 
+	private static final int ACT0 = 0, ACT1 = 1, ACT2 = 2, ACT3 = 3, ACT4 = 4;
 
-public class ReportCategoryAttributeMaker extends Block{
+	private String prefix = "rcam_";
 
+	private String sAction = this.prefix + "action";
 
+	private String sActPrm = "0";
 
-  private final int ACT0 = 0,ACT1=1,ACT2=2,ACT3=3,ACT4=4;
+	private int iAction = 0;
 
-  private String prefix = "rcam_";
+	private String sName, sAttId;
 
-  private String sAction = prefix+"action";
+	private String sId;
 
-  private String sActPrm = "0";
+	public ReportCategoryAttributeMaker() {
 
-  private int iAction = 0;
+		this.sId = "0";
 
-  private String sName,sAttId;
+		this.sName = "";
 
-  private String sId;
+		this.sAttId = "0";
 
+	}
 
+	private void control(IWContext iwc) {
 
-  public ReportCategoryAttributeMaker(){
+		try {
 
-    sId = "0";
+			doSome(iwc);
 
-    sName = "";
+			if (iwc.getParameter(this.sAction) != null) {
 
-    sAttId = "0";
+				this.sActPrm = iwc.getParameter(this.sAction);
 
-  }
+				try {
 
+					this.iAction = Integer.parseInt(this.sActPrm);
 
+					switch (this.iAction) {
 
-  private void control(IWContext iwc){
+						case ACT0:
+							doSome(iwc);
+							break;
 
+						case ACT1:
+							doAct1(iwc);
+							break;
 
+						case ACT2:
+							doAct2(iwc);
+							break;
 
-    try{
+						case ACT3:
+							break;
 
-        doSome(iwc);
+						case ACT4:
+							break;
 
+					}
 
+				}
 
-        if(iwc.getParameter(sAction) != null){
+				catch (Exception e) {
 
-          sActPrm = iwc.getParameter(sAction);
+				}
 
-          try{
+			}
 
-            iAction = Integer.parseInt(sActPrm);
+		}
 
-            switch(iAction){
+		catch (Exception S) {
 
-              case ACT0: doSome(iwc); break;
+			S.printStackTrace();
 
-              case ACT1: doAct1(iwc); break;
+		}
 
-              case ACT2: doAct2(iwc); break;
+		doMain(iwc);
 
-              case ACT3: break;
+	}
 
-              case ACT4: break;
+	private void doSome(IWContext iwc) {
 
-            }
+		int id = 0;
 
-          }
+		String sIndex = iwc.getParameter(this.prefix + "drp");
 
-          catch(Exception e){
+		if (sIndex != null) {
 
+			id = Integer.parseInt(sIndex);
 
+			if (id != 0) {
 
-          }
+				try {
 
-        }
+					ReportCategoryAttribute RC = ((com.idega.block.reports.data.ReportCategoryAttributeHome) com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).findByPrimaryKeyLegacy(id);
 
-    }
+					this.sName = RC.getName();
 
-    catch(Exception S){
+					this.sAttId = String.valueOf(RC.getAttributeId());
 
-      S.printStackTrace();
+					this.sId = String.valueOf(RC.getReportCategoryId());
 
-    }
+				}
 
-    doMain(iwc);
+				catch (Exception ex) {
 
-  }
+				}
 
+			}
 
+		}
 
-  private void doSome(IWContext iwc){
+	}
 
-    int id = 0;
+	private void doMain(IWContext iwc) {
 
-    String sIndex = iwc.getParameter(prefix+"drp");
+		String sIndex = iwc.getParameter(this.prefix + "drp");
 
-    if(sIndex != null){
+		String sId = iwc.getParameter(this.prefix + "drp2");
 
-      id = Integer.parseInt(sIndex);
+		Table T = new Table();
 
-      if(id != 0){
+		Form myForm = new Form();
 
-        try {
+		if (sIndex == null) {
+			sIndex = "0";
+		}
 
-          ReportCategoryAttribute RC = ((com.idega.block.reports.data.ReportCategoryAttributeHome)com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).findByPrimaryKeyLegacy(id);
+		if (sId == null) {
+			sId = "0";
+		}
 
-          sName = RC.getName();
+		DropdownMenu drp2 = this.drpCategories(this.prefix + "drp2", sId);
 
-          sAttId = String.valueOf(RC.getAttributeId());
+		DropdownMenu drp = this.drpAttributes(this.prefix + "drp", sIndex);
 
-          sId = String.valueOf(RC.getReportCategoryId());
+		drp.setToSubmit();
 
-        }
+		TextInput tiName = new TextInput(this.prefix + "name", this.sName);
 
-        catch (Exception ex) {
+		TextInput tiId = new TextInput(this.prefix + "attid", this.sAttId);
 
-        }
+		SubmitButton submit = new SubmitButton("Save", this.sAction, String.valueOf(ACT1));
 
-      }
+		SubmitButton delete = new SubmitButton("Del", this.sAction, String.valueOf(ACT2));
 
-    }
+		Table T2 = new Table();
 
-  }
+		T2.add("Attribute", 1, 1);
 
+		T2.add(drp, 1, 2);
 
+		T2.add("Category", 2, 1);
 
-  private void doMain(IWContext iwc){
+		T2.add(drp2, 2, 2);
 
-    String sIndex = iwc.getParameter(prefix+"drp");
+		T2.add("Name:", 3, 1);
 
-    String sId = iwc.getParameter(prefix+"drp2");
+		T2.add(tiName, 3, 2);
 
-    Table T = new Table();
+		T2.add("ID:", 4, 1);
 
-    Form myForm = new Form();
+		T2.add(tiId, 4, 2);
 
-    if(sIndex == null)
+		T2.add(submit, 5, 2);
 
-      sIndex = "0";
+		T2.add(delete, 6, 2);
 
-     if(sId == null)// || sIndex == "0")
+		myForm.add(T2);
 
-      sId = "0";
+		T.add(myForm);
 
-    DropdownMenu drp2 = this.drpCategories(prefix+"drp2",sId);
+		add(T);
 
-    DropdownMenu drp = this.drpAttributes(prefix+"drp",sIndex);
+	}
 
-    drp.setToSubmit();
+	private void doAct1(IWContext iwc) {
 
-    TextInput tiName = new TextInput(prefix+"name",sName);
+		int id = -1;
 
-    TextInput tiId = new TextInput(prefix+"attid",sAttId);
+		String sIndex = iwc.getParameter(this.prefix + "drp");
 
-    SubmitButton submit= new SubmitButton("Save",this.sAction,String.valueOf(this.ACT1));
+		if (sIndex != null) {
+			id = Integer.parseInt(sIndex);
+		}
 
-    SubmitButton delete= new SubmitButton("Del",this.sAction,String.valueOf(this.ACT2));
+		this.sId = iwc.getParameter(this.prefix + "drp2");
 
-    Table T2 = new Table();
+		this.sName = iwc.getParameter(this.prefix + "name");
 
+		this.sAttId = iwc.getParameter(this.prefix + "attid");
 
+		add(" cat: " + this.sId);
 
-    T2.add("Attribute",1,1);
+		add(" att: " + this.sName);
 
-    T2.add(drp,1,2);
+		add(" attid: " + this.sAttId);
 
-    T2.add("Category",2,1);
+		if (id == 0) {
+			this.saveAttribute(this.sName, this.sAttId, this.sId);
+		}
+		else {
+			this.updateAttribute(id, this.sName, this.sAttId, this.sId);
+		}
 
-    T2.add(drp2,2,2);
+	}
 
-    T2.add("Name:",3,1);
+	private void doAct2(IWContext iwc) {
 
-    T2.add(tiName,3,2);
+		int id = 0;
 
-    T2.add("ID:",4,1);
+		String sIndex = iwc.getParameter(this.prefix + "drp");
 
-    T2.add(tiId,4,2);
+		if (sIndex != null) {
+			id = Integer.parseInt(sIndex);
+		}
 
-    T2.add(submit,5,2);
+		if (id != 0) {
+			this.deleteAttribute(id);
+		}
 
-    T2.add(delete,6,2);
+		this.sName = "";
 
-    myForm.add(T2);
+	}
 
-    T.add(myForm);
+	private boolean saveAttribute(String sAttName, String sAttID, String cid) {
 
-    add(T);
+		try {
 
-  }
+			int tid = Integer.parseInt(cid);
 
+			int attid = Integer.parseInt(sAttID);
 
+			if (tid > 0) {
 
-  private void doAct1(IWContext iwc){
+				ReportCategoryAttribute rc = ((com.idega.block.reports.data.ReportCategoryAttributeHome) com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).createLegacy();
 
-    int id = -1;
+				rc.setName(sAttName);
 
-    String sIndex = iwc.getParameter(prefix+"drp");
+				rc.setReportCategoryId(tid);
 
-    if(sIndex != null)
+				rc.setAttributeId(attid);
 
-       id = Integer.parseInt(sIndex);
+				rc.insert();
 
-    sId = iwc.getParameter(prefix+"drp2");
+				return true;
 
-    sName = iwc.getParameter(prefix+"name");
+			}
+			else {
+				return false;
+			}
 
-    sAttId = iwc.getParameter(prefix+"attid");
+		}
 
-    add(" cat: "+ sId );
+		catch (Exception ex) {
+			ex.printStackTrace();
 
-    add(" att: "+ sName );
+			return false;
 
-    add(" attid: "+ sAttId );
+		}
 
+	}
 
+	private boolean updateAttribute(int id, String sAttName, String sAttID, String cid) {
 
+		try {
 
+			int tid = Integer.parseInt(cid);
 
-    if(id == 0)
+			int attid = Integer.parseInt(sAttID);
 
-      this.saveAttribute(sName,sAttId,sId);
+			if (id != -1 && tid > 0) {
 
-    else
+				ReportCategoryAttribute rc = ((com.idega.block.reports.data.ReportCategoryAttributeHome) com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).findByPrimaryKeyLegacy(id);
 
-      this.updateAttribute(id,sName,sAttId,sId);
+				rc.setName(sAttName);
 
+				rc.setReportCategoryId(tid);
 
+				rc.setAttributeId(attid);
 
-  }
+				rc.update();
 
+				return true;
 
+			}
+			else {
+				return false;
+			}
 
-  private void doAct2(IWContext iwc){
+		}
 
-    int id = 0;
+		catch (Exception ex) {
 
-    String sIndex = iwc.getParameter(prefix+"drp");
+			return false;
 
-    if(sIndex != null)
+		}
 
-       id = Integer.parseInt(sIndex);
+	}
 
-    if(id != 0)
+	private boolean deleteAttribute(int id) {
 
-      this.deleteAttribute(id);
+		try {
 
-    sName = "";
+			ReportCategoryAttribute rc = ((com.idega.block.reports.data.ReportCategoryAttributeHome) com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).findByPrimaryKeyLegacy(id);
 
-  }
+			rc.delete();
 
+			return true;
 
+		}
 
-  private boolean saveAttribute(String sAttName,String sAttID,String cid){
+		catch (Exception ex) {
 
-    try {
+			return false;
 
-      int tid = Integer.parseInt(cid);
+		}
 
-      int attid = Integer.parseInt(sAttID);
+	}
 
-      if(tid > 0){
+	private DropdownMenu drpAttributes(String sPrm, String selected) {
 
-        ReportCategoryAttribute rc = ((com.idega.block.reports.data.ReportCategoryAttributeHome)com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).createLegacy();
+		ReportCategoryAttribute[] cat = new ReportCategoryAttribute[0];
 
-        rc.setName(sAttName);
+		try {
 
-        rc.setReportCategoryId(tid);
+			cat = (ReportCategoryAttribute[]) (((com.idega.block.reports.data.ReportCategoryAttributeHome) com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).createLegacy()).findAll();
 
-        rc.setAttributeId(attid);
+		}
 
-        rc.insert();
+		catch (SQLException sql) {
+			sql.printStackTrace();
+		}
 
-        return true;
+		DropdownMenu drp = new DropdownMenu(sPrm);
 
-      }
+		drp.addMenuElement("0", "Attribute");
 
-      else
+		for (int i = 0; i < cat.length; i++) {
 
-        return false;
+			drp.addMenuElement(cat[i].getID(), cat[i].getName());
 
-    }
+		}
 
-    catch (Exception ex) {ex.printStackTrace();
+		if (!selected.equalsIgnoreCase("")) {
+			drp.setSelectedElement(selected);
+		}
 
-      return false;
+		return drp;
 
-    }
+	}
 
-  }
+	private DropdownMenu drpCategories(String sPrm, String selected) {
 
-  private boolean updateAttribute(int id,String sAttName,String sAttID,String cid){
+		ReportCategory[] cat = new ReportCategory[0];
 
-     try {
+		try {
 
-      int tid = Integer.parseInt(cid);
+			cat = (ReportCategory[]) (((com.idega.block.reports.data.ReportCategoryHome) com.idega.data.IDOLookup.getHomeLegacy(ReportCategory.class)).createLegacy()).findAll();
 
-      int attid = Integer.parseInt(sAttID);
+		}
 
-      if(id != -1 && tid > 0){
+		catch (SQLException sql) {
+		}
 
-      ReportCategoryAttribute rc = ((com.idega.block.reports.data.ReportCategoryAttributeHome)com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).findByPrimaryKeyLegacy(id);
+		DropdownMenu drp = new DropdownMenu(sPrm);
 
-      rc.setName(sAttName);
+		drp.addMenuElement("0", "Category");
 
-      rc.setReportCategoryId(tid);
+		for (int i = 0; i < cat.length; i++) {
 
-      rc.setAttributeId(attid);
+			drp.addMenuElement(cat[i].getID(), cat[i].getName());
 
-      rc.update();
+		}
 
-      return true;
+		if (!selected.equalsIgnoreCase("")) {
+			drp.setSelectedElement(selected);
+		}
 
-      }
+		return drp;
 
-      else
+	}
 
-        return false;
+	public void main(IWContext iwc) {
 
-    }
+		/*
+		 * try{
+		 * 
+		 * isAdmin =
+		 * com.idega.core.accesscontrol.business.AccessControl.isAdmin(iwc);
+		 *  }
+		 * 
+		 * catch(SQLException e){
+		 * 
+		 * isAdmin = false;
+		 *  }
+		 * 
+		 */
 
-    catch (Exception ex) {
+		control(iwc);
 
-      return false;
-
-    }
-
-  }
-
-  private boolean deleteAttribute(int id){
-
-    try {
-
-      ReportCategoryAttribute rc = ((com.idega.block.reports.data.ReportCategoryAttributeHome)com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).findByPrimaryKeyLegacy(id);
-
-      rc.delete();
-
-      return true;
-
-    }
-
-    catch (Exception ex) {
-
-      return false;
-
-    }
-
-  }
-
-
-
-  private DropdownMenu drpAttributes(String sPrm,String selected) {
-
-    ReportCategoryAttribute[] cat = new ReportCategoryAttribute[0];
-
-    try{
-
-      cat = (ReportCategoryAttribute[]) (((com.idega.block.reports.data.ReportCategoryAttributeHome)com.idega.data.IDOLookup.getHomeLegacy(ReportCategoryAttribute.class)).createLegacy()).findAll();
-
-    }
-
-    catch(SQLException sql){sql.printStackTrace();}
-
-    DropdownMenu drp = new DropdownMenu(sPrm);
-
-    drp.addMenuElement("0","Attribute");
-
-    for (int i = 0; i < cat.length; i++) {
-
-      drp.addMenuElement(cat[i].getID(),cat[i].getName());
-
-    }
-
-    if(!selected.equalsIgnoreCase(""))
-
-      drp.setSelectedElement(selected);
-
-    return drp;
-
-  }
-
-
-
-
-
-  private DropdownMenu drpCategories(String sPrm,String selected) {
-
-    ReportCategory[] cat = new ReportCategory[0];
-
-    try{
-
-      cat = (ReportCategory[]) (((com.idega.block.reports.data.ReportCategoryHome)com.idega.data.IDOLookup.getHomeLegacy(ReportCategory.class)).createLegacy()).findAll();
-
-    }
-
-    catch(SQLException sql){}
-
-    DropdownMenu drp = new DropdownMenu(sPrm);
-
-    drp.addMenuElement("0","Category");
-
-    for (int i = 0; i < cat.length; i++) {
-
-      drp.addMenuElement(cat[i].getID(),cat[i].getName());
-
-    }
-
-    if(!selected.equalsIgnoreCase(""))
-
-      drp.setSelectedElement(selected);
-
-    return drp;
-
-  }
-
-
-
-  public void main(IWContext iwc) {
-
-    /* try{
-
-      isAdmin = com.idega.core.accesscontrol.business.AccessControl.isAdmin(iwc);
-
-    }
-
-    catch(SQLException e){
-
-      isAdmin = false;
-
-    }
-
-    */
-
-    control(iwc);
-
-  }
-
-
+	}
 
 }
