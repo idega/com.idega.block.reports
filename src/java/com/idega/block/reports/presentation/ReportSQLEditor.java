@@ -42,6 +42,8 @@ import com.idega.presentation.util.Edit;
 
 public class ReportSQLEditor extends Block implements Reports{
 
+  private final static String IW_BUNDLE_IDENTIFIER="com.idega.block.reports";
+
   private final String sAction = "rep.edit.action";
   protected final static int ACT1 = 1,ACT2 = 2, ACT3 = 3,ACT4  = 4,ACT5 = 5,ACT6=6,ACT7=7;
 
