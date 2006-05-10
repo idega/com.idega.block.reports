@@ -1,10 +1,13 @@
 package com.idega.block.reports.business;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.ejb.FinderException;
 
 import com.idega.block.category.business.CategoryFinder;
 import com.idega.block.category.data.CategoryEntityBMPBean;
@@ -133,11 +136,12 @@ public class ReportFinder {
     return L;
   }
 
-  public static List listOfDataClasses(){
+  public static Collection listOfDataClasses(){
     try {
-      return EntityFinder.findAllByColumn(((com.idega.core.component.data.ICObjectHome)com.idega.data.IDOLookup.getHomeLegacy(ICObject.class)).createLegacy(),com.idega.core.component.data.ICObjectBMPBean.getObjectTypeColumnName(),com.idega.core.component.data.ICObjectBMPBean.COMPONENT_TYPE_DATA);
+    	com.idega.core.component.data.ICObjectHome home = (com.idega.core.component.data.ICObjectHome) com.idega.data.IDOLookup.getHomeLegacy(ICObject.class); 
+      return home.findAllByObjectType(com.idega.core.component.data.ICObjectBMPBean.COMPONENT_TYPE_DATA);
     }
-    catch (SQLException ex) {
+    catch (FinderException ex) {
 
     }
     return null;

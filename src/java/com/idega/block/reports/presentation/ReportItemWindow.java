@@ -1,6 +1,7 @@
 package com.idega.block.reports.presentation;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import com.idega.block.reports.business.ReportEntityHandler;
@@ -388,7 +389,7 @@ public class ReportItemWindow extends IWAdminWindow {
 	}
 
 	private DropdownMenu getDataEntityDrop(String name, String selected) {
-		List L = ReportFinder.listOfDataClasses();
+		Collection L = ReportFinder.listOfDataClasses();
 		DropdownMenu drp = new DropdownMenu(name);
 		drp.addMenuElementFirst("-", "-1");
 		java.util.Iterator I = L.iterator();
