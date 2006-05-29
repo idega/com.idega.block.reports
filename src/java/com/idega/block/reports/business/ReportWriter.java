@@ -221,7 +221,13 @@ public class ReportWriter implements MediaWritable {
 		     	System.err.println("[ReportWriter] statement could not be closed");
 		     	statementCloseEx.printStackTrace(System.err);
 		    }    	
- 	    	mos.close();
+ 	    	try {
+				mos.close();
+			}
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    }
 		if (type.equals(XLS)) {
 			buffer.setMimeType("application/x-msexcel");
