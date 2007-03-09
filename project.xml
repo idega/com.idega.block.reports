@@ -5,7 +5,7 @@
   <pomVersion>3</pomVersion>
   <name>idegaWeb Reports Block</name>
   <artifactId>com.idega.block.reports</artifactId>
-  <currentVersion>3.1.0</currentVersion>
+  <currentVersion>3.1.1</currentVersion>
   <shortDescription>Reports</shortDescription>
   <versions>
     <version>
