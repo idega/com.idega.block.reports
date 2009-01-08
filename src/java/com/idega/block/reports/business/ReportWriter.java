@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.idega.block.reports.data.Report;
 import com.idega.block.reports.data.ReportInfo;
+import com.idega.core.file.util.MimeTypeUtil;
 import com.idega.io.MediaWritable;
 import com.idega.io.MemoryFileBuffer;
 import com.idega.io.MemoryInputStream;
@@ -230,7 +231,7 @@ public class ReportWriter implements MediaWritable {
 			}
 	    }
 		if (type.equals(XLS)) {
-			buffer.setMimeType("application/x-msexcel");
+			buffer.setMimeType(MimeTypeUtil.MIME_TYPE_EXCEL_2);
 		}
 		else {
 			buffer.setMimeType("text/plain");
