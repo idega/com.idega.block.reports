@@ -96,7 +96,7 @@ public class ReportEditor extends Block implements Reports{
           }
         }
 				else {
-					add(Edit.formatText("Ekki réttindi"));
+					add(Edit.formatText("Ekki rÃ©ttindi"));
 				}
     }
     catch(Exception S){
