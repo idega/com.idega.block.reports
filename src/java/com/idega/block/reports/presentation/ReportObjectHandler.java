@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import com.idega.block.reports.business.ReportCondition;
 import com.idega.block.reports.data.ReportCategory;
+import com.idega.data.IDOEntity;
 import com.idega.presentation.Block;
 import com.idega.presentation.ui.DropdownMenu;
 import com.idega.presentation.ui.InterfaceObject;
@@ -247,8 +248,8 @@ public class ReportObjectHandler extends Block{
 
     java.util.List L  = null;
     try{
-
-      com.idega.data.IDOLegacyEntity leg =  (com.idega.data.IDOLegacyEntity)com.idega.data.IDOLookup.instanciateEntity(RefactorClassRegistry.forName(Entity));
+    	Class<? extends IDOEntity> entityClass = RefactorClassRegistry.forName(Entity);
+      com.idega.data.IDOLegacyEntity leg =  (com.idega.data.IDOLegacyEntity)com.idega.data.IDOLookup.instanciateEntity(entityClass);
      // java.lang.Class.forName(Entity)
       //com.idega.data.IDOHome home = (com.idega.data.IDOHome) com.idega.data.IDOLookup.getHomeLegacy(java.lang.Class.forName(Entity));
       //com.idega.data.IDOEntity ge = home.createIDO();
