@@ -54,7 +54,12 @@ public class ReportWriter implements MediaWritable {
 	public final static String TXT = "txt";
 	public ReportWriter() {
 	}
+	@Override
 	public void init(HttpServletRequest req, IWContext iwma) {
+		if (iwma == null || !iwma.isLoggedOn()) {
+			return;
+		}
+
 		if (req.getParameter(prmReportId) != null) {
 			this.eReport = ReportFinder.getReport(Integer.parseInt(req.getParameter(prmReportId)));
 			if (req.getParameter(prmReportInfoId) != null) {
@@ -83,13 +88,15 @@ public class ReportWriter implements MediaWritable {
 			}
 		}
 	}
+	@Override
 	public String getMimeType() {
 		if (this.buffer != null) {
 			return this.buffer.getMimeType();
 		}
 		return "application/pdf";
 	}
-	public void writeTo(OutputStream out) throws IOException {
+	@Override
+	public void writeTo(IWContext iwc, OutputStream out) throws IOException {
 		if (this.buffer != null) {
 			MemoryInputStream mis = new MemoryInputStream(this.buffer);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -138,7 +145,7 @@ public class ReportWriter implements MediaWritable {
 				io.printStackTrace();
 				returner = false;
 			}
-			
+
 		}
 		return returner;
 	}
@@ -160,7 +167,7 @@ public class ReportWriter implements MediaWritable {
 		Statement stmt = null;
 		MemoryFileBuffer buffer = new MemoryFileBuffer();
 		MemoryOutputStream mos = new MemoryOutputStream(buffer);
-		
+
 		try {
 			//String file = realpath;
 			//FileWriter out = new FileWriter(file);
@@ -202,7 +209,7 @@ public class ReportWriter implements MediaWritable {
 		}
 	    finally {
 	    	// do not hide an existing exception
-	    	try { 
+	    	try {
 	    		if (RS != null) {
 	    			RS.close();
 		      	}
@@ -221,7 +228,7 @@ public class ReportWriter implements MediaWritable {
 	 	    catch (SQLException statementCloseEx) {
 		     	System.err.println("[ReportWriter] statement could not be closed");
 		     	statementCloseEx.printStackTrace(System.err);
-		    }    	
+		    }
  	    	try {
 				mos.close();
 			}
@@ -303,10 +310,10 @@ public class ReportWriter implements MediaWritable {
 		catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 	    finally {
 	    	// do not hide an existing exception
-	    	try { 
+	    	try {
 	    		if (RS != null) {
 	    			RS.close();
 		      	}
